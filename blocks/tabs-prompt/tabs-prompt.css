@@ -1,0 +1,118 @@
+/* Tabs Prompt — structural layout only (brand styling applied in the design pass) */
+
+.tabs-prompt {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-sm);
+  padding: var(--gap-lg) var(--gap-md);
+}
+
+/* optional background image fills the rounded panel */
+.tabs-prompt .tabs-prompt-bg {
+  position: absolute;
+  inset: 0;
+  line-height: 0;
+}
+
+.tabs-prompt .tabs-prompt-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tabs-prompt .tabs-prompt-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.tabs-prompt .tabs-prompt-intro > * {
+  margin: 0;
+}
+
+/* prompt pills wrap onto multiple lines */
+.tabs-prompt .tabs-prompt-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-xs);
+}
+
+.tabs-prompt .tabs-prompt-button {
+  margin: 0;
+  padding: var(--gap-xs) var(--gap-md);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--background-color);
+  color: inherit;
+  font-weight: 700;
+  text-align: start;
+  cursor: pointer;
+}
+
+.tabs-prompt .tabs-prompt-button[aria-expanded='true'] {
+  border-color: currentcolor;
+}
+
+.tabs-prompt .tabs-prompt-panel[hidden] {
+  display: none;
+}
+
+/* result set: 3 items */
+.tabs-prompt .tabs-prompt-results {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tabs-prompt .tabs-prompt-result {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--background-color);
+}
+
+.tabs-prompt .tabs-prompt-result-image {
+  line-height: 0;
+}
+
+.tabs-prompt .tabs-prompt-result-image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.tabs-prompt .tabs-prompt-result-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  padding: var(--gap-md);
+}
+
+.tabs-prompt .tabs-prompt-result-body > * {
+  margin: 0;
+}
+
+.tabs-prompt .tabs-prompt-result-body > p:last-child {
+  margin-top: auto;
+}
+
+@media (width >= 600px) {
+  .tabs-prompt {
+    padding: var(--gap-xl);
+  }
+}
+
+@media (width >= 900px) {
+  .tabs-prompt {
+    padding: var(--gap-xl) 48px;
+  }
+
+  .tabs-prompt .tabs-prompt-results {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

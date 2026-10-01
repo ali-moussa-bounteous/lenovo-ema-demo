@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-icon",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "moderate",
+    "purpose": "feature-links",
+    "imagePattern": "small-icon",
+    "structure": "icon + heading + text + link",
+    "layout": "4-column grid",
+    "notes": "red line icons, underlined red-accent links, no card background"
+  },
+  "contentPattern": {
+    "structure": "one row per item, 2 cells: cell 1 = icon image, cell 2 = H3 title + paragraph + text link",
+    "buttonCount": 0,
+    "imageCount": 4
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-09-29T15:39:41.506Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}
