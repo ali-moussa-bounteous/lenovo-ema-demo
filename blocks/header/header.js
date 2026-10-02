@@ -536,6 +536,160 @@ function buildPromo(section) {
 }
 
 /* ------------------------------------------------------------------ */
+/* mobile drawer                                                       */
+/* ------------------------------------------------------------------ */
+/*
+ * Below the desktop breakpoint the menu is a full-screen drawer built from the
+ * already decorated rows: a main list, and one slide-in panel per item that
+ * owns a sub-list. Desktop markup is untouched; the drawer is hidden there.
+ */
+
+/** Deep copy of a node's children (keeps inline markup such as <strong>). */
+function cloneChildren(node) {
+  return [...node.childNodes].map((n) => n.cloneNode(true));
+}
+
+/** A plain list of links copied from an <ul>. */
+function drawerLinkList(list) {
+  const out = el('ul', 'nav-drawer-links');
+  list.querySelectorAll(':scope > li').forEach((li) => {
+    const item = el('li', 'nav-drawer-link', ...cloneChildren(li));
+    if (!li.querySelector('a') && li.querySelector('strong')) item.classList.add('nav-drawer-subheading');
+    out.append(item);
+  });
+  return out;
+}
+
+/** Megamenu columns become +/- groups, cards follow them. */
+function drawerMegaContent(panel) {
+  const content = [];
+  panel.querySelectorAll('.nav-panel-column').forEach((column) => {
+    const heading = column.querySelector('.nav-column-heading');
+    const links = column.querySelector('.nav-column-links');
+    if (!heading || !links) return;
+    const group = el('div', 'nav-drawer-group');
+    const toggle = el('button', 'nav-drawer-group-toggle', heading.textContent.trim());
+    toggle.type = 'button';
+    toggle.setAttribute('aria-expanded', 'false');
+    const body = drawerLinkList(links);
+    // a linked column heading stays reachable as the group's first link
+    if (heading.tagName === 'A') body.prepend(el('li', 'nav-drawer-link', heading.cloneNode(true)));
+    body.hidden = true;
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      body.hidden = open;
+    });
+    group.append(toggle, body);
+    content.push(group);
+  });
+  const cards = panel.querySelector('.nav-panel-cards');
+  if (cards) content.push(cards.cloneNode(true));
+  return content;
+}
+
+/** Sub-panel content for a decorated item, or null when it has nothing to open. */
+function drawerPanelContent(item) {
+  const mega = item.querySelector(':scope > .nav-panel-mega');
+  if (mega) return drawerMegaContent(mega);
+  const list = item.querySelector(':scope > .nav-panel .nav-panel-links, :scope > .nav-popover > ul');
+  return list ? [drawerLinkList(list)] : null;
+}
+
+function drawerCloseButton(nav) {
+  const close = el('button', 'nav-drawer-close');
+  close.type = 'button';
+  close.setAttribute('aria-label', 'Close navigation');
+  // eslint-disable-next-line no-use-before-define
+  close.addEventListener('click', () => toggleMobileMenu(nav, false));
+  return close;
+}
+
+function showDrawerPanel(drawer, panel, returnFocus) {
+  drawer.querySelectorAll('.nav-drawer-panel').forEach((p) => {
+    const active = p === panel;
+    p.classList.toggle('is-active', active);
+    p.setAttribute('aria-hidden', active ? 'false' : 'true');
+    p.inert = !active;
+  });
+  drawer.querySelector('.nav-drawer-main').classList.toggle('is-behind', !panel.classList.contains('nav-drawer-main'));
+  if (returnFocus) returnFocus.focus({ preventScroll: true });
+}
+
+function buildMobileDrawer(nav, groups, footerLinks, accountLink) {
+  const drawer = el('div', 'nav-drawer');
+  const main = el('div', 'nav-drawer-panel nav-drawer-main is-active');
+  const mainBar = el('div', 'nav-drawer-bar');
+  if (accountLink) {
+    const account = accountLink.cloneNode(true);
+    const icon = accountLink.closest('.nav-item')?.querySelector('.nav-icon');
+    if (icon) account.prepend(icon.cloneNode(true));
+    mainBar.append(el('div', 'nav-drawer-account', account));
+  }
+  mainBar.append(drawerCloseButton(nav));
+  const mainBody = el('div', 'nav-drawer-body');
+  main.append(mainBar, mainBody);
+  drawer.append(main);
+
+  groups.forEach(({ items, className }) => {
+    const list = el('ul', `nav-drawer-list ${className}`);
+    items.forEach((item, i) => {
+      const link = item.querySelector(':scope > a');
+      const content = drawerPanelContent(item);
+      const label = link || item.querySelector(':scope > button');
+      if (!label) return;
+      const row = el('li', 'nav-drawer-item');
+      if (!content) {
+        row.append(link ? link.cloneNode(true) : el('span', '', label.textContent.trim()));
+        list.append(row);
+        return;
+      }
+      const panelId = `nav-drawer-${className}-${i}`;
+      const next = el('button', 'nav-drawer-next', el('span', 'nav-drawer-label', ...cloneChildren(label)));
+      next.type = 'button';
+      next.setAttribute('aria-controls', panelId);
+      row.append(next);
+      list.append(row);
+
+      const panel = el('div', 'nav-drawer-panel nav-drawer-sub');
+      panel.id = panelId;
+      const back = el('button', 'nav-drawer-back', 'Main Menu');
+      back.type = 'button';
+      const bar = el('div', 'nav-drawer-bar', back, drawerCloseButton(nav));
+      const headline = el('div', 'nav-drawer-headline', el('p', 'nav-drawer-title', ...cloneChildren(label)));
+      if (link) headline.append(el('a', 'nav-drawer-explore', 'Explore'));
+      if (link) headline.lastChild.href = link.href;
+      const body = el('div', 'nav-drawer-body', headline, ...content);
+      panel.append(bar, body);
+      drawer.append(panel);
+
+      next.addEventListener('click', () => showDrawerPanel(drawer, panel, back));
+      back.addEventListener('click', () => showDrawerPanel(drawer, main, next));
+    });
+    if (list.children.length) mainBody.append(list);
+  });
+
+  if (footerLinks.length) {
+    const list = el('ul', 'nav-drawer-list nav-drawer-list-footer');
+    footerLinks.forEach((link) => {
+      const copy = link.cloneNode(true);
+      const label = copy.getAttribute('aria-label');
+      if (label && !copy.textContent.trim()) {
+        copy.append(el('span', 'nav-drawer-link-label', label));
+        copy.removeAttribute('aria-label');
+      }
+      list.append(el('li', 'nav-drawer-item', copy));
+    });
+    mainBody.append(list);
+  }
+  drawer.querySelectorAll('.nav-drawer-sub').forEach((p) => {
+    p.setAttribute('aria-hidden', 'true');
+    p.inert = true;
+  });
+  return drawer;
+}
+
+/* ------------------------------------------------------------------ */
 /* decorate                                                            */
 /* ------------------------------------------------------------------ */
 
@@ -548,6 +702,15 @@ function toggleMobileMenu(nav, force) {
     button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
   }
   document.body.style.overflowY = (!expanded && !DESKTOP.matches) ? 'hidden' : '';
+  const drawer = nav.querySelector('.nav-drawer');
+  if (!drawer) return;
+  if (expanded) {
+    // closing: start from the main list next time
+    showDrawerPanel(drawer, drawer.querySelector('.nav-drawer-main'));
+    button?.focus({ preventScroll: true });
+  } else {
+    drawer.querySelector('.nav-drawer-main .nav-drawer-close')?.focus({ preventScroll: true });
+  }
 }
 
 /**
@@ -603,6 +766,26 @@ export default async function decorate(block) {
   row.append(primary, segments);
 
   nav.append(topbar, masthead, row, buildPromo(sections.promo));
+
+  // mobile drawer: main rows, then text items of the top bar, then segments,
+  // then plain icon links of the tools (e.g. rewards)
+  const childItems = (list) => (list ? [...list.children] : []);
+  const drawer = buildMobileDrawer(
+    nav,
+    [
+      { items: childItems(primaryList), className: 'nav-drawer-list-primary' },
+      { items: childItems(topbarList).filter((li) => !li.classList.contains('nav-item-icon')), className: 'nav-drawer-list-topbar' },
+      { items: childItems(segmentList), className: 'nav-drawer-list-segments' },
+    ],
+    childItems(toolsList)
+      .filter((li) => !li.classList.contains('nav-item-popover'))
+      .map((li) => li.querySelector(':scope > a'))
+      .filter(Boolean),
+    toolsList?.querySelector('.nav-popover-cta a'),
+  );
+  drawer.id = 'nav-drawer';
+  hamburgerButton.setAttribute('aria-controls', 'nav-drawer');
+  nav.append(drawer);
 
   // global close behaviour
   document.addEventListener('keydown', (e) => {
