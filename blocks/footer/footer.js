@@ -2,7 +2,7 @@
  * Footer block — content-first.
  *
  * All copy, links and images come from the footer fragment
- * (content/footer.plain.html locally, /footer.plain.html on DA/EDS).
+ * (/content/footer.plain.html for local /content pages, /footer.plain.html on DA/EDS).
  * The fragment is a flat list of sections; each section is classified by
  * its content signature and rendered into a generic footer region:
  *
@@ -17,15 +17,15 @@
 const MOBILE_CLONE_CLASS = 'footer-social-mobile';
 
 /**
- * Fetches the footer fragment (metadata-independent dual fetch) and returns
+ * Fetches the footer fragment (metadata-independent) and returns
  * its top-level section elements. The fragment is parsed in an inert document
  * so images (e.g. locale flags) are only requested once they are rendered.
  * @returns {Promise<Element[]>}
  */
 async function fetchFooterSections() {
-  // metadata-independent: /content first (localhost), then root (DA/EDS prod)
-  let resp = await fetch('/content/footer.plain.html');
-  if (!resp.ok) resp = await fetch('/footer.plain.html');
+  // metadata-independent: /content when the page is there (localhost), else root (DA/EDS prod)
+  const root = window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resp = await fetch(`${root}/footer.plain.html`);
   if (!resp.ok) return [];
   const html = await resp.text();
   const doc = new DOMParser().parseFromString(html, 'text/html');

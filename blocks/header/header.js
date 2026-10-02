@@ -19,13 +19,13 @@ const CLOSE_DELAY = 120;
 const PROMO_INTERVAL = 5000;
 
 /**
- * Loads the nav fragment. Metadata-independent: /content first (local preview),
- * then the site root (DA / EDS production).
+ * Loads the nav fragment. Metadata-independent: under /content when the page
+ * itself is (local preview), otherwise from the site root (DA / EDS production).
  * @returns {Promise<HTMLElement|null>}
  */
 async function fetchNavFragment() {
-  let resp = await fetch('/content/nav.plain.html');
-  if (!resp.ok) resp = await fetch('/nav.plain.html');
+  const root = window.location.pathname.startsWith('/content/') ? '/content' : '';
+  const resp = await fetch(`${root}/nav.plain.html`);
   if (!resp.ok) return null;
   const fragment = document.createElement('div');
   fragment.innerHTML = await resp.text();
