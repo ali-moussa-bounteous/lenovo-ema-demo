@@ -1,0 +1,31 @@
+{
+  "variantName": "columns-rewards",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light-gradient",
+    "density": "spacious",
+    "purpose": "membership-promo-banner",
+    "imagePattern": "background-gradient-image",
+    "structure": "heading + text + 2 CTAs | list",
+    "layout": "2 columns ~55/45",
+    "notes": "rounded panel lilac/pink gradient, list items separated by thin rules"
+  },
+  "contentPattern": {
+    "structure": "optional image-only row (panel background); 1 row x 2 cells: cell 1 = H2 heading, paragraph, <strong> link (primary button), plain link; cell 2 = unordered list of benefits",
+    "buttonCount": 2,
+    "imageCount": 1
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-29T15:39:41.506Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

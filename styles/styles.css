@@ -1,74 +1,187 @@
+@import url('brand.css');
+
+/* stylelint-disable no-descending-specificity -- consolidated variant file */
+
 /*
- * Copyright 2020 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
+ * Lenovo - Edge Delivery Services
+ * Design system migrated from https://www.lenovo.com/us/en/
+ * Brand tokens (fonts, base colors, palette, heading sizes) live in brand.css.
+ * Token NAMES below are shared with existing blocks — only values were changed.
  */
 
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* colors (base background/text/link colors come from brand.css) */
+  --text-color-muted: #6f6f6f;
+  --text-color-subtle: #3a3a3a;
+  --accent-color: var(--brand-purple);
+  --accent-hover-color: var(--brand-purple-dark);
+  --light-color: var(--brand-purple-light);
+  --dark-color: #1e0013;
+  --cream-color: #f7f7f7;
+  --forest-color: var(--brand-purple-dark);
+  --border-color: var(--brand-gray-border);
+  --border-color-light: var(--brand-gray-light);
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  /* body sizes (mobile-first) */
+  --body-font-size-m: 16px;
+  --body-font-size-s: 14px;
+  --body-font-size-xs: 12px;
+  --body-line-height: 1.5;
+  --paragraph-line-height: 1.4;
+  --body-letter-spacing: -0.01em;
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  /* heading sizes (mobile-first; desktop values from brand.css) */
+  --heading-font-size-xxl: 36px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 16px;
+  --heading-font-weight: 600;
+  --heading-line-height: 1.2;
+  --heading-letter-spacing: -0.01em;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
+  /* spacing (--section-padding comes from brand.css) */
+  --container-max-width: 1344px;
+  --container-narrow-max-width: 768px;
+  --container-padding: 0 16px;
+  --gap-xs: 12px;
+  --gap-sm: 8px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --gap-xl: 32px;
+  --gap-2xl: 48px;
+  --gap-3xl: 64px;
 
-  /* nav height */
+  /* nav height (used by the header block) */
   --nav-height: 64px;
+
+  /* buttons — Lenovo CTA: Montserrat bold, 8px radius, 40px tall, no shadow */
+  --button-font-family: var(--heading-font-family);
+  --button-font-size: 16px;
+  --button-font-weight: 700;
+  --button-line-height: 24px;
+  --button-letter-spacing: normal;
+  --button-border-radius: 8px;
+  --button-border-width: 2px;
+  --button-padding: 6px 24px;
+  --button-transition: background-color 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease, text-decoration-color 0.15s ease;
+  --btn-shadow: transparent;
+
+  /* button variants */
+  --button-primary-bg: var(--brand-purple);
+  --button-primary-bg-hover: var(--brand-purple-dark);
+  --button-primary-color: #fff;
+  --button-secondary-color: var(--text-color);
+  --button-secondary-color-hover: var(--brand-red);
+  --button-secondary-font-weight: 600;
+  --button-accent-bg: #fff;
+  --button-accent-bg-hover: var(--brand-gray-light);
+  --button-accent-color: #000;
+  --button-accent-border: var(--brand-gray-light);
+  --button-disabled-opacity: 0.5;
+
+  /* focus — Lenovo uses a red focus indicator */
+  --focus-outline: 2px solid var(--brand-red);
+  --focus-outline-offset: 2px;
+
+  /* links */
+  --link-decoration-thickness: 2px;
+  --link-underline-offset: 3px;
+  --link-font-weight: 500;
+
+  /* transitions */
+  --transition-fast: 0.15s;
+  --transition-normal: 0.3s ease;
+
+  /* border radii */
+  --border-radius-sm: 8px;
+  --card-border-radius: 12px;
+  --border-radius-lg: 16px;
+
+  /* card shared patterns */
+  --card-hover-shadow: 0 4px 20px rgb(0 0 0 / 8%);
+  --card-hover-transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+
+  /* tag pill shared patterns */
+  --tag-padding: 4px 8px;
+  --tag-font-size: 12px;
+  --tag-letter-spacing: normal;
+
+  /* text link (underlined CTA link pattern) */
+  --text-link-letter-spacing: normal;
+  --text-link-underline-offset: 3px;
+
+  /* brand */
+  --logo-icon-size: 32px;
+  --brand-letter-spacing: 0.6px;
+
+  /* footer */
+  --footer-link-color: #999;
+
+  /* dark section / overlay text */
+  --text-on-dark: rgb(255 255 255 / 85%);
+  --text-on-dark-muted: rgb(255 255 255 / 55%);
+
+  /* glass card (dark section) */
+  --glass-bg: rgb(255 255 255 / 6%);
+  --glass-border: rgb(255 255 255 / 12%);
 }
 
-/* fallback fonts */
+/* fallback fonts — size-adjusted local Arial to limit layout shift */
 @font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
+  font-family: montserrat-fallback;
+  size-adjust: 113%;
   src: local('Arial');
 }
 
 @font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
+  font-family: noto-sans-fallback;
+  size-adjust: 106%;
   src: local('Arial');
 }
 
-@media (width >= 900px) {
+/* tablet */
+@media (width >= 600px) {
   :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
-
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
+    --heading-font-size-xxl: 48px;
+    --heading-font-size-xl: 34px;
+    --heading-font-size-l: 26px;
     --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
+    --heading-font-size-s: 18px;
+    --heading-font-size-xs: 16px;
   }
 }
+
+/* header block breakpoint — kept at 768px so the header renders unchanged */
+@media (width >= 768px) {
+  :root {
+    --nav-height: 75px;
+  }
+}
+
+/* small desktop */
+@media (width >= 900px) {
+  :root {
+    --container-padding: 0 32px;
+  }
+}
+
+/* desktop */
+@media (width >= 1200px) {
+  :root {
+    --heading-font-size-xxl: var(--heading-size-xxl);
+    --heading-font-size-xl: var(--heading-size-xl);
+    --heading-font-size-l: var(--heading-size-l);
+    --heading-font-size-m: var(--heading-size-m);
+    --heading-font-size-s: var(--heading-size-s);
+    --heading-font-size-xs: var(--heading-size-xs);
+    --container-padding: 0 48px;
+  }
+}
+
+/* --- RESET & BASE --- */
 
 body {
   display: none;
@@ -77,7 +190,7 @@ body {
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
-  line-height: 1.6;
+  line-height: var(--body-line-height);
 }
 
 body.appear {
@@ -86,6 +199,9 @@ body.appear {
 
 header {
   height: var(--nav-height);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 header .header,
@@ -98,26 +214,42 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* --- TYPOGRAPHY (default content, from brand extraction) --- */
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin-top: 0;
+  margin-bottom: var(--gap-xs);
+  color: var(--text-color);
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: var(--heading-font-weight);
+  line-height: var(--heading-line-height);
+  letter-spacing: var(--heading-letter-spacing);
   scroll-margin: 40px;
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
+h1 {
+  font-size: var(--heading-font-size-xxl);
+  line-height: 1.1;
+}
+
 h2 { font-size: var(--heading-font-size-xl); }
 h3 { font-size: var(--heading-font-size-l); }
 h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
+
+@media (width >= 1200px) {
+  /* source hero headline: 56px / 56px, -1.4px */
+  h1 {
+    line-height: 1;
+    letter-spacing: -0.025em;
+  }
+}
 
 p,
 dl,
@@ -125,8 +257,58 @@ ol,
 ul,
 pre,
 blockquote {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin-top: 0;
+  margin-bottom: var(--gap-md);
+}
+
+p {
+  color: var(--text-color);
+  line-height: var(--paragraph-line-height);
+  letter-spacing: var(--body-letter-spacing);
+}
+
+/* --- VERTICAL RHYTHM: Default content flow --- */
+
+/* Remove trailing margin on last child in any container */
+main .default-content-wrapper > *:last-child,
+main .section > div > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Button wrappers (CTA links) get 24px top margin for breathing room */
+main .default-content-wrapper p.button-wrapper {
+  margin-top: var(--gap-lg);
+  margin-bottom: 0;
+}
+
+/* Consecutive button wrappers: only the first gets the top gap */
+main .default-content-wrapper p.button-wrapper + p.button-wrapper {
+  margin-top: 0;
+}
+
+/* Headings following body paragraphs need extra space above (article flow) —
+   but NOT when following an eyebrow (first p in container) */
+main .default-content-wrapper p + p + h2,
+main .default-content-wrapper p + p + h3 {
+  margin-top: var(--gap-2xl);
+}
+
+main .default-content-wrapper p + p + h4,
+main .default-content-wrapper p + p + h5 {
+  margin-top: var(--gap-xl);
+}
+
+/* Section heading row (title + optional description) */
+main .section > div > h2:first-child {
+  margin-bottom: var(--gap-md);
+}
+
+/* Section description under the section title (source: 16px, 18px on desktop) */
+@media (width >= 1200px) {
+  main .default-content-wrapper > h2 + p {
+    font-size: 18px;
+    line-height: 1.2;
+  }
 }
 
 code,
@@ -135,15 +317,33 @@ pre {
 }
 
 pre {
-  padding: 16px;
-  border-radius: 8px;
-  background-color: var(--light-color);
+  padding: var(--gap-md);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--cream-color);
   overflow-x: auto;
   white-space: pre;
 }
 
+/* blockquote — brand purple left border */
+blockquote {
+  border-left: 4px solid var(--accent-color);
+  margin: var(--gap-lg) 0;
+  padding: var(--gap-md) var(--gap-lg);
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+blockquote p {
+  margin-bottom: var(--gap-sm);
+  color: var(--text-color-subtle);
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
 main > div {
-  margin: 40px 16px;
+  margin: 0;
 }
 
 input,
@@ -153,130 +353,7 @@ button {
   font: inherit;
 }
 
-/* links */
-a:any-link {
-  color: var(--link-color);
-  text-decoration: none;
-  overflow-wrap: break-word;
-}
-
-a:hover {
-  color: var(--link-hover-color);
-  text-decoration: underline;
-}
-
-/* buttons */
-p.button-wrapper {
-  margin: 12px 0;
-}
-
-a.button:any-link,
-button.button {
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  margin: 0;
-  border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
-  font: inherit;
-  font-weight: 500;
-  line-height: 1.25;
-  text-decoration: none;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-a.button[aria-disabled="true"],
-button.button:disabled {
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-a.button.primary,
-button.button.primary {
-  border-color: var(--text-color);
-  background-color: var(--text-color);
-  color: var(--background-color);
-}
-
-a.button.primary:hover,
-a.button.primary:focus-visible,
-button.button.primary:hover,
-button.button.primary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--dark-color);
-  color: var(--light-color);
-}
-
-a.button.primary[aria-disabled="true"],
-a.button.primary[aria-disabled="true"]:hover,
-a.button.primary[aria-disabled="true"]:focus-visible,
-button.button.primary:disabled,
-button.button.primary:disabled:hover,
-button.button.primary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-a.button.secondary,
-button.button.secondary {
-  border-color: var(--text-color);
-  background-color: transparent;
-  color: var(--text-color);
-}
-
-a.button.secondary:hover,
-a.button.secondary:focus-visible,
-button.button.secondary:hover,
-button.button.secondary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-a.button.secondary[aria-disabled="true"],
-a.button.secondary[aria-disabled="true"]:hover,
-a.button.secondary[aria-disabled="true"]:focus-visible,
-button.button.secondary:disabled,
-button.button.secondary:disabled:hover,
-button.button.secondary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-/* high-impact call-to-action */
-a.button.accent,
-button.button.accent {
-  border-color: var(--link-color);
-  background-color: var(--link-color);
-  color: var(--background-color);
-}
-
-a.button.accent:hover,
-a.button.accent:focus-visible,
-button.button.accent:hover,
-button.button.accent:focus-visible {
-  border-color: var(--link-hover-color);
-  background-color: var(--link-hover-color);
-}
-
-a.button.accent[aria-disabled="true"],
-a.button.accent[aria-disabled="true"]:hover,
-a.button.accent[aria-disabled="true"]:focus-visible,
-button.button.accent:disabled,
-button.button.accent:disabled:hover,
-button.button.accent:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
+/* --- IMAGES --- */
 
 main img {
   max-width: 100%;
@@ -295,31 +372,397 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* --- TAG PILL: shared eyebrow / category label --- */
+
+.tag-pill {
+  display: inline-block;
+  font-family: var(--heading-font-family);
+  font-size: var(--tag-font-size);
+  font-weight: 600;
+  letter-spacing: var(--tag-letter-spacing);
+  background-color: var(--accent-color);
+  color: var(--background-color);
+  padding: var(--tag-padding);
+  border-radius: var(--border-radius-sm);
+}
+
+/* --- LINKS --- */
+
+a:any-link {
+  color: var(--link-color);
+  text-decoration: none;
+  overflow-wrap: break-word;
+  transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--link-hover-color);
+}
+
+/* default content links — Lenovo underlined link: 2px underline, 3px offset */
+main .default-content-wrapper a:any-link:not(.button) {
+  font-weight: var(--link-font-weight);
+  text-decoration: underline;
+  text-decoration-thickness: var(--link-decoration-thickness);
+  text-underline-offset: var(--link-underline-offset);
+}
+
+main .default-content-wrapper a:any-link:not(.button):hover {
+  color: var(--link-hover-color);
+  text-decoration-color: var(--link-hover-color);
+}
+
+/* focus ring — accessibility */
+*:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* --- BUTTON SYSTEM --- */
+
+main .button-container {
+  display: inline;
+}
+
+/* Button wrappers — display consecutive buttons as a row */
+main p.button-wrapper {
+  display: inline-flex;
+  margin: 0 var(--gap-md) 0 0;
+}
+
+main p.button-wrapper:last-child {
+  margin-right: 0;
+}
+
+p.button-wrapper {
+  margin: 0;
+}
+
+/* Decorated buttons (via p.button-wrapper > a.button) — base resets + Lenovo CTA metrics */
+a.button:any-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-sm);
+  max-width: 100%;
+  margin: 0;
+  border: var(--button-border-width) solid transparent;
+  border-radius: var(--button-border-radius);
+  padding: var(--button-padding);
+  background: none;
+  color: var(--link-color);
+  font-family: var(--button-font-family);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  letter-spacing: var(--button-letter-spacing);
+  line-height: var(--button-line-height);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: none;
+  transition: var(--button-transition);
+}
+
+a.button:hover {
+  text-decoration: none;
+}
+
+a.button:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+}
+
+a.button[aria-disabled="true"] {
+  opacity: var(--button-disabled-opacity);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary (strong): Lenovo purple fill, white text */
+a.button.primary {
+  border-color: var(--button-primary-bg);
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
+}
+
+a.button.primary:hover,
+a.button.primary:active {
+  border-color: var(--button-primary-bg-hover);
+  background-color: var(--button-primary-bg-hover);
+  color: var(--button-primary-color);
+}
+
+/* Secondary (em): Lenovo underlined text CTA (Montserrat 600, red on hover) */
+a.button.secondary {
+  border-color: transparent;
+  border-radius: 4px;
+  padding-inline: 0;
+  background-color: transparent;
+  color: var(--button-secondary-color);
+  font-weight: var(--button-secondary-font-weight);
+  text-decoration: underline;
+  text-decoration-thickness: var(--link-decoration-thickness);
+  text-underline-offset: var(--link-underline-offset);
+}
+
+a.button.secondary:hover,
+a.button.secondary:active {
+  background-color: transparent;
+  color: var(--button-secondary-color-hover);
+  text-decoration: underline;
+  text-decoration-color: var(--button-secondary-color-hover);
+}
+
+/* Accent (strong + em): Lenovo white button for image / colored backgrounds */
+a.button.accent {
+  border-color: var(--button-accent-border);
+  background-color: var(--button-accent-bg);
+  color: var(--button-accent-color);
+}
+
+a.button.accent:hover,
+a.button.accent:active {
+  border-color: var(--button-accent-bg-hover);
+  background-color: var(--button-accent-bg-hover);
+  color: var(--button-accent-color);
+}
+
+/* --- SECTIONS --- */
+
 main > .section {
-  margin: 40px 0;
+  margin: 0;
+  padding: var(--section-padding);
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: auto;
-  padding: 0 24px;
+  padding: var(--container-padding);
+}
+
+/* Vertical spacing between adjacent block/content wrappers in the same section */
+main > .section > [class$="-wrapper"] + [class$="-wrapper"],
+main > .section > [class$="-wrapper"] + .default-content-wrapper,
+main > .section > .default-content-wrapper + [class$="-wrapper"] {
+  margin-top: var(--gap-xl);
 }
 
 main > .section:first-of-type {
   margin-top: 0;
+  padding-top: 0;
 }
 
-@media (width >= 900px) {
-  main > .section > div {
-    padding: 0 32px;
-  }
+/* Hide empty sections */
+main > .section:not(:has(> *)) {
+  display: none;
 }
 
-/* section metadata */
+/* --- SECTION METADATA STYLES --- */
+
+/* Highlight / Light: Lenovo light plum bg */
 main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
+}
+
+/* Dark: plum-black bg, white text */
+main > .section.dark {
+  background-color: var(--dark-color);
+  color: var(--background-color);
+}
+
+main > .section.dark h1,
+main > .section.dark h2,
+main > .section.dark h3,
+main > .section.dark h4,
+main > .section.dark h5,
+main > .section.dark h6 {
+  color: var(--background-color);
+}
+
+main > .section.dark p:not(.tag-pill) {
+  color: var(--text-on-dark);
+}
+
+main > .section.dark a:any-link:not(.button) {
+  color: var(--background-color);
+}
+
+main > .section.dark a:any-link:not(.button):hover {
+  color: var(--light-color);
+  text-decoration-color: var(--light-color);
+}
+
+/* dark section: primary button becomes the Lenovo white button */
+main > .section.dark a.button.primary {
+  border-color: var(--button-accent-bg);
+  background-color: var(--button-accent-bg);
+  color: var(--dark-color);
+}
+
+main > .section.dark a.button.primary:hover {
+  border-color: var(--button-accent-bg-hover);
+  background-color: var(--button-accent-bg-hover);
+}
+
+/* dark section: secondary text CTA in white */
+main > .section.dark a.button.secondary {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--background-color);
+}
+
+main > .section.dark a.button.secondary:hover {
+  color: var(--light-color);
+  text-decoration-color: var(--light-color);
+}
+
+/* dark section: focus ring uses white */
+main > .section.dark *:focus-visible {
+  outline-color: var(--background-color);
+}
+
+/* Accent: Lenovo purple bg, white text */
+main > .section.accent {
+  background-color: var(--accent-color);
+  color: var(--background-color);
+}
+
+main > .section.accent h1,
+main > .section.accent h2,
+main > .section.accent h3,
+main > .section.accent h4,
+main > .section.accent h5,
+main > .section.accent h6 {
+  color: var(--background-color);
+}
+
+main > .section.accent p {
+  color: var(--background-color);
+}
+
+main > .section.accent a:any-link:not(.button) {
+  color: var(--background-color);
+}
+
+main > .section.accent > div > p:not(.tag-pill) {
+  font-size: 20px;
+}
+
+/* accent section: primary button uses white fill + purple text */
+main > .section.accent a.button.primary {
+  border-color: var(--button-accent-bg);
+  background-color: var(--button-accent-bg);
+  color: var(--accent-color);
+}
+
+main > .section.accent a.button.primary:hover {
+  border-color: var(--button-accent-bg-hover);
+  background-color: var(--button-accent-bg-hover);
+  color: var(--accent-hover-color);
+}
+
+main > .section.accent a.button.secondary {
+  border-color: transparent;
+  color: var(--background-color);
+  background-color: transparent;
+}
+
+main > .section.accent a.button.secondary:hover {
+  color: var(--light-color);
+  text-decoration-color: var(--light-color);
+}
+
+main > .section.accent *:focus-visible {
+  outline-color: var(--background-color);
+}
+
+/* Secondary: light bg (kept for backward compatibility) */
+main > .section.secondary {
+  background-color: var(--light-color);
+}
+
+/* Narrow: constrains content to narrow max-width */
+main .section.narrow > div {
+  max-width: var(--container-narrow-max-width);
+}
+
+/* Center: explicit text + button centering (opt-in via section-metadata) */
+main > .section.center {
+  text-align: center;
+}
+
+main > .section.center .button-group {
+  justify-content: center;
+}
+
+main > .section.center .button-wrapper {
+  display: inline-block;
+  margin: 4px 8px;
+}
+
+/* Accent section: tag pill uses dark bg instead of accent */
+main .section.accent .tag-pill {
+  background-color: var(--dark-color);
+}
+
+/* Body paragraphs in dark/narrow sections */
+main .section.dark.narrow p:not(.tag-pill) {
+  font-size: var(--body-font-size-m);
+  line-height: 1.6;
+}
+
+main .section.dark.narrow h2 {
+  margin-bottom: var(--gap-lg);
+}
+
+/* --- ARTICLE BODY --- */
+
+/* article body — narrow reading column after hero (article) */
+.hero-container:has(.article) + .section > div {
+  max-width: var(--container-narrow-max-width);
+}
+
+/* image captions in article body */
+.hero-container:has(.article) + .section > div > p:has(> img) + p {
+  font-size: var(--body-font-size-s);
+  color: var(--text-color-muted);
+  font-style: italic;
+  margin-top: -8px;
+}
+
+/* --- BUTTON GROUP --- */
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-xs) var(--gap-lg);
+  margin: var(--gap-lg) 0 0;
+}
+
+main .default-content-wrapper .button-group p.button-wrapper {
   margin: 0;
-  padding: 40px 0;
+}
+
+/* --- REDUCED MOTION — ACCESSIBILITY --- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,0 +1,208 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "home",
+      "urls": [
+        "https://www.lenovo.com/us/en/"
+      ],
+      "representativeUrl": "https://www.lenovo.com/us/en/",
+      "description": "",
+      "blocks": [
+        {
+          "name": "carousel-hero",
+          "instances": [
+            ".carousel.panelcontainer"
+          ]
+        },
+        {
+          "name": "cards-category",
+          "instances": [
+            ".card-grid.categories"
+          ]
+        },
+        {
+          "name": "tabs-prompt",
+          "instances": [
+            ".len-prompt-container"
+          ]
+        },
+        {
+          "name": "cards-tile",
+          "instances": [
+            ".card-grid.detail .card-grid__wrapper"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            ".card-grid.icon .card-grid__wrapper"
+          ]
+        },
+        {
+          "name": "columns-rewards",
+          "instances": [
+            ".content-package-banner"
+          ]
+        },
+        {
+          "name": "tabs-casestudy",
+          "instances": [
+            ".len-tabs"
+          ]
+        }
+      ],
+      "urlPattern": "/us/*",
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero carousel",
+          "selector": [
+            ".cmp-experiencefragment--ftv-hero-banner-carousel",
+            ".experiencefragment:has(.cmp-carousel)"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-hero"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Category shortcuts",
+          "selector": [
+            ".len-card-grid:has(.card-grid.categories)",
+            ".len-card-grid.section:nth-of-type(1)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-category"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Discover How Lenovo Can Help You (prompt picker)",
+          "selector": [
+            ".prompt-group.base-component",
+            ".prompt-group"
+          ],
+          "style": null,
+          "blocks": [
+            "tabs-prompt"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "Powering Global Events & Partnerships",
+          "selector": [
+            ".len-card-grid:has(.card-grid.detail):nth-of-type(5)",
+            ".len-card-grid.section:nth-of-type(5)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-tile"
+          ],
+          "defaultContent": [
+            ".len-card-grid.section:nth-of-type(5) .card-grid__section-header .cmp-title__text",
+            ".len-card-grid.section:nth-of-type(5) .card-grid__section-header .cmp-title__description"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "A Global Technology Powerhouse",
+          "selector": [
+            ".len-card-grid:has(.card-grid.icon):nth-of-type(7)",
+            ".len-card-grid.section:nth-of-type(7)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": [
+            ".len-card-grid.section:nth-of-type(7) .card-grid__section-header .cmp-title__text"
+          ]
+        },
+        {
+          "id": "section-6",
+          "name": "Fueling What's Next",
+          "selector": [
+            ".len-card-grid:has(.card-grid.detail):nth-of-type(9)",
+            ".len-card-grid.section:nth-of-type(9)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-tile"
+          ],
+          "defaultContent": [
+            ".len-card-grid.section:nth-of-type(9) .card-grid__section-header .cmp-title__text",
+            ".len-card-grid.section:nth-of-type(9) .card-grid__section-header .cmp-title__description"
+          ]
+        },
+        {
+          "id": "section-7",
+          "name": "Browse Devices Built to Help You Go Further",
+          "selector": [
+            ".len-card-grid:has(.card-grid.detail):nth-of-type(11)",
+            ".len-card-grid.section:nth-of-type(11)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-tile"
+          ],
+          "defaultContent": [
+            ".len-card-grid.section:nth-of-type(11) .card-grid__section-header .cmp-title__text"
+          ]
+        },
+        {
+          "id": "section-8",
+          "name": "My Lenovo Rewards banner",
+          "selector": [
+            ".len-acb.section",
+            ".len-acb"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-rewards"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-9",
+          "name": "Exclusive Promotions & Resources",
+          "selector": [
+            ".len-card-grid:has(.card-grid.icon):nth-of-type(15)",
+            ".len-card-grid.section:nth-of-type(15)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": [
+            ".len-card-grid.section:nth-of-type(15) .card-grid__section-header .cmp-title__text",
+            ".len-card-grid.section:nth-of-type(15) .card-grid__section-header .cmp-title__description"
+          ]
+        },
+        {
+          "id": "section-10",
+          "name": "Lenovo Innovation in Action",
+          "selector": [
+            ".section-header.base-component",
+            ".tabs.panelcontainer"
+          ],
+          "style": null,
+          "blocks": [
+            "tabs-casestudy"
+          ],
+          "defaultContent": [
+            ".section-header .cmp-title__text",
+            ".section-header .cmp-title__body-wrapper a"
+          ]
+        }
+      ]
+    }
+  ]
+}

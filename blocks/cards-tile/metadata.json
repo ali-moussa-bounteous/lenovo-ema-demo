@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-tile",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "image-tile-links",
+    "imagePattern": "full-bleed-photo",
+    "structure": "image + title + description + link",
+    "layout": "3-up grid or horizontal scroller with arrows when >3 items",
+    "notes": "rounded 12px corners, white label box with chevron over bottom of photo"
+  },
+  "contentPattern": {
+    "structure": "one row per tile, 2 cells: cell 1 = image, cell 2 = H3 title + description paragraph + link (the link becomes the whole-tile link); more than 3 rows render as a horizontal scroller",
+    "buttonCount": 0,
+    "imageCount": 8
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 3,
+    "lastUsed": "2026-09-29T15:39:41.506Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

@@ -1,0 +1,31 @@
+{
+  "variantName": "tabs-casestudy",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "dense",
+    "purpose": "case-study-tabs",
+    "imagePattern": "icons-only",
+    "structure": "tab labels + title + text + CTA + quote + list + stats",
+    "layout": "underlined tab bar, panel with 3 tiles (quote | list | stacked stats)",
+    "notes": "white rounded bordered container, light grey tiles, purple stat numbers"
+  },
+  "contentPattern": {
+    "structure": "one row per case study, 5 cells: 1 = tab label; 2 = H3 title + description + <strong> CTA link; 3 = 'The impact' eyebrow + blockquote + author name + role; 4 = 'How they did it' eyebrow + list of solutions (icon + text); 5 = stats as heading number + paragraph label each",
+    "buttonCount": 1,
+    "imageCount": 4
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-29T15:39:41.506Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

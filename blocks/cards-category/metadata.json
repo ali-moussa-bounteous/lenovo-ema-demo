@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-category",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "category-navigation",
+    "imagePattern": "product-cutout",
+    "structure": "image + label link",
+    "layout": "7-up single row, centered",
+    "notes": "no card chrome, bold centered labels"
+  },
+  "contentPattern": {
+    "structure": "one row per category, 2 cells: cell 1 = product cut-out image, cell 2 = linked label paragraph",
+    "buttonCount": 0,
+    "imageCount": 7
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-29T15:39:41.506Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

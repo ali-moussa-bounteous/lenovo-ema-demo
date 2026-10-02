@@ -1,0 +1,75 @@
+/* Cards Category — structural layout only (brand styling applied in the design pass) */
+
+.cards-category > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+  gap: var(--gap-lg) var(--gap-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-category .cards-category-item {
+  min-width: 0;
+}
+
+.cards-category .cards-category-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards-category .cards-category-link:hover {
+  color: inherit;
+}
+
+.cards-category .cards-category-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80px;
+  line-height: 0;
+}
+
+.cards-category .cards-category-image img {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cards-category .cards-category-label {
+  text-align: center;
+  font-weight: 700;
+}
+
+.cards-category .cards-category-label > * {
+  margin: 0;
+}
+
+.cards-category .cards-category-link:hover .cards-category-label {
+  text-decoration: underline;
+}
+
+@media (width >= 600px) {
+  .cards-category .cards-category-image {
+    height: 96px;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-category > ul {
+    grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  }
+}
+
+@media (width >= 1200px) {
+  .cards-category .cards-category-image {
+    height: 112px;
+  }
+}

@@ -1,0 +1,189 @@
+/* Cards Tile — structural layout only (brand styling applied in the design pass) */
+
+.cards-tile .cards-tile-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-tile .cards-tile-item {
+  min-width: 0;
+}
+
+/* tile: full-bleed photo with label box overlaid at the bottom */
+.cards-tile .cards-tile-surface {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--border-radius-sm);
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards-tile .cards-tile-surface:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards-tile .cards-tile-image {
+  line-height: 0;
+}
+
+.cards-tile .cards-tile-image img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.cards-tile .cards-tile-body {
+  position: absolute;
+  inset: auto var(--gap-md) var(--gap-md);
+}
+
+.cards-tile .cards-tile-label {
+  position: relative;
+  padding: var(--gap-xs) 40px var(--gap-xs) var(--gap-md);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--background-color);
+}
+
+/* chevron */
+.cards-tile .cards-tile-label::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: var(--gap-md);
+  width: 8px;
+  height: 8px;
+  border: solid currentcolor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.cards-tile .cards-tile-label > * {
+  margin: 0;
+}
+
+.cards-tile .cards-tile-title {
+  font-size: inherit;
+}
+
+/* description stays in the DOM; revealed on hover/focus */
+.cards-tile .cards-tile-description {
+  display: none;
+}
+
+.cards-tile .cards-tile-surface:hover .cards-tile-description,
+.cards-tile .cards-tile-surface:focus-visible .cards-tile-description {
+  display: block;
+  margin-top: var(--gap-sm);
+}
+
+/* scroller: more than 3 items */
+.cards-tile.is-scroller .cards-tile-list {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.cards-tile.is-scroller .cards-tile-list::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-tile.is-scroller .cards-tile-item {
+  flex: 0 0 80%;
+  scroll-snap-align: start;
+}
+
+.cards-tile .cards-tile-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-lg);
+}
+
+.cards-tile .cards-tile-controls button {
+  position: relative;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid currentcolor;
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.cards-tile .cards-tile-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.cards-tile .cards-tile-prev::after,
+.cards-tile .cards-tile-next::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: solid currentcolor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: translate(-30%, -50%) rotate(135deg);
+}
+
+.cards-tile .cards-tile-next::after {
+  transform: translate(-70%, -50%) rotate(-45deg);
+}
+
+.cards-tile .cards-tile-progress {
+  position: relative;
+  flex: 1 1 auto;
+  height: 2px;
+  margin-left: var(--gap-md);
+}
+
+.cards-tile .cards-tile-progress::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentcolor;
+  opacity: 0.3;
+}
+
+.cards-tile .cards-tile-progress-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: currentcolor;
+}
+
+@media (width >= 600px) {
+  .cards-tile .cards-tile-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards-tile.is-scroller .cards-tile-item {
+    flex-basis: calc((100% - var(--gap-md)) / 2.3);
+  }
+}
+
+@media (width >= 900px) {
+  .cards-tile .cards-tile-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* ~3.3 tiles visible */
+  .cards-tile.is-scroller .cards-tile-item {
+    flex-basis: calc((100% - 3 * var(--gap-md)) / 3.3);
+  }
+}
