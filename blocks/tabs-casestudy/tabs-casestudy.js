@@ -77,6 +77,9 @@ function decorateHow(cell) {
     label.querySelectorAll(':scope > p').forEach((p) => {
       if (!p.textContent.trim() && !p.children.length) p.remove();
     });
+    // published markup wraps the label text in its own <p>; keep it inline
+    const paragraphs = label.querySelectorAll(':scope > p');
+    if (paragraphs.length === 1) paragraphs[0].replaceWith(...paragraphs[0].childNodes);
     li.append(label);
   });
   return cell;

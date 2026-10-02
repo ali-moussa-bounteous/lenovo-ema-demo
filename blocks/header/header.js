@@ -18,6 +18,49 @@ const SECTION_ROLES = ['topbar', 'brand', 'search', 'tools', 'primary', 'segment
 const CLOSE_DELAY = 120;
 const PROMO_INTERVAL = 5000;
 
+/** The link of a <strong> that holds nothing but one link, else null. */
+function boldLinkOf(strong) {
+  const [only] = strong.childNodes;
+  return strong.childNodes.length === 1 && only.tagName === 'A' ? only : null;
+}
+
+/** Turns <strong><a>text</a></strong> into <a><strong>text</strong></a>. */
+function unwrapBoldLink(strong, link) {
+  strong.replaceWith(link);
+  strong.replaceChildren(...link.childNodes);
+  link.append(strong);
+}
+
+/**
+ * Brings published fragment markup back to the shape the decorators expect.
+ * The delivery pipeline wraps the content of list items that hold a nested
+ * list in a single <p>, wraps images in <picture>, writes fully bold links as
+ * <strong><a>, and indents the markup; the local fragment has none of these.
+ * Items with several paragraphs (promo cards) keep them. Bold links that are
+ * the whole item are left to decoratePopoverContent (they may be a CTA).
+ * @param {HTMLElement} fragment
+ */
+function normalizeFragment(fragment) {
+  fragment.querySelectorAll('picture').forEach((picture) => {
+    const img = picture.querySelector('img');
+    if (img) picture.replaceWith(img);
+  });
+  fragment.querySelectorAll('li').forEach((li) => {
+    const paragraphs = li.querySelectorAll(':scope > p');
+    if (paragraphs.length === 1) paragraphs[0].replaceWith(...paragraphs[0].childNodes);
+  });
+  const walker = document.createTreeWalker(fragment, NodeFilter.SHOW_TEXT);
+  const indents = [];
+  while (walker.nextNode()) {
+    if (/^\s*\n\s*$/.test(walker.currentNode.textContent)) indents.push(walker.currentNode);
+  }
+  indents.forEach((n) => n.remove());
+  fragment.querySelectorAll('li > strong').forEach((strong) => {
+    const link = boldLinkOf(strong);
+    if (link && strong.parentElement.childNodes.length > 1) unwrapBoldLink(strong, link);
+  });
+}
+
 /**
  * Loads the nav fragment. Metadata-independent: under /content when the page
  * itself is (local preview), otherwise from the site root (DA / EDS production).
@@ -29,6 +72,7 @@ async function fetchNavFragment() {
   if (!resp.ok) return null;
   const fragment = document.createElement('div');
   fragment.innerHTML = await resp.text();
+  normalizeFragment(fragment);
   // resolve relative media paths against the fragment location
   fragment.querySelectorAll('img[src]').forEach((img) => {
     img.src = new URL(img.getAttribute('src'), resp.url).href;
@@ -119,8 +163,17 @@ function decoratePopoverContent(list) {
     const nested = li.querySelector(':scope > ul');
     const heading = li.querySelector(':scope > strong');
     if (nested && heading) li.classList.add('nav-popover-group');
-    if (heading && !nested && heading.querySelector('a')) li.classList.add('nav-popover-cta');
-    if (heading && !nested && !heading.querySelector('a')) {
+    const boldLink = heading && !nested && boldLinkOf(heading);
+    if (boldLink) {
+      // a fully bold link is the call to action only right after the intro;
+      // elsewhere it is just a bold link
+      if (li.previousElementSibling?.classList.contains('nav-popover-intro')) {
+        li.classList.add('nav-popover-cta');
+      } else {
+        unwrapBoldLink(heading, boldLink);
+      }
+    }
+    if (heading && !nested && !boldLink && !heading.querySelector('a')) {
       li.classList.add('nav-popover-intro');
       splitOnBreak(li, 'nav-popover-intro');
     }
