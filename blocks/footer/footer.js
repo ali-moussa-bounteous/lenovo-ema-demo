@@ -294,17 +294,47 @@ function buildLocale(section) {
   return wrapper;
 }
 
+/** The store a badge belongs to, from its label ("IOS", "Android", ...). */
+const badgePlatform = (label) => {
+  if (/\bios\b|app store|apple/i.test(label)) return 'ios';
+  if (/android|google play/i.test(label)) return 'android';
+  return '';
+};
+
+/** The visitor's mobile platform, if any. */
+const devicePlatform = () => {
+  const ua = navigator.userAgent;
+  if (/iPhone|iPad|iPod/.test(ua)) return 'ios';
+  if (/Android/.test(ua)) return 'android';
+  return '';
+};
+
 /**
- * App badges: image-only links.
+ * App badges: image-only links, optionally preceded by text paragraphs
+ * (title + description, shown on small screens only). On a phone only the
+ * badge for that phone's store is shown.
  * @param {Element} section
  */
 function buildApps(section) {
   const wrapper = createElement('div', 'footer-apps');
+  const texts = [...section.querySelectorAll('p')].filter(isTextOnlyParagraph);
+  if (texts.length) {
+    const text = createElement('div', 'footer-apps-text');
+    texts.forEach((p, i) => {
+      const node = adopt(p);
+      node.className = i === 0 ? 'footer-apps-title' : 'footer-apps-desc';
+      text.append(node);
+    });
+    wrapper.append(text);
+  }
+  const device = devicePlatform();
   section.querySelectorAll('a').forEach((a) => {
     const link = adopt(a);
     const img = link.querySelector('img');
     if (img && !link.getAttribute('aria-label')) link.setAttribute('aria-label', img.alt);
     img?.setAttribute('loading', 'lazy');
+    const platform = badgePlatform(link.getAttribute('aria-label') || '');
+    if (device && platform && platform !== device) link.classList.add('footer-apps-other');
     wrapper.append(link);
   });
   return wrapper;
