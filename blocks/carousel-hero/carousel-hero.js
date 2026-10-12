@@ -30,7 +30,8 @@ function optimize(img, eager, widths) {
 }
 
 function buildSlide(row, index, total, id) {
-  const slide = document.createElement('li');
+  // slides are groups (APG carousel pattern), so they are not list items
+  const slide = document.createElement('div');
   slide.className = 'carousel-hero-slide';
   slide.id = `carousel-hero-${id}-slide-${index}`;
   slide.dataset.slideIndex = index;
@@ -102,7 +103,7 @@ export default function decorate(block) {
 
   const viewport = document.createElement('div');
   viewport.className = 'carousel-hero-viewport';
-  const track = document.createElement('ul');
+  const track = document.createElement('div');
   track.className = 'carousel-hero-slides';
   track.id = `carousel-hero-${id}-slides`;
   track.setAttribute('aria-live', 'off');

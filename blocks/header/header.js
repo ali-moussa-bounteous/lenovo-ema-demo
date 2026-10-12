@@ -216,6 +216,8 @@ function decoratePopoverItem(nav, li) {
     [...li.childNodes].filter((n) => n.nodeType === Node.TEXT_NODE).forEach((n) => n.remove());
     if (text) {
       button.append(el('span', 'nav-item-label', text));
+      // the visible label is hidden on small screens; keep the button named
+      button.setAttribute('aria-label', text);
     } else {
       button.setAttribute('aria-label', label);
       if (icon) icon.alt = '';

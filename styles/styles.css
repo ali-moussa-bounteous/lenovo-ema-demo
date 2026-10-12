@@ -53,8 +53,9 @@
   --gap-2xl: 48px;
   --gap-3xl: 64px;
 
-  /* nav height (used by the header block) */
-  --nav-height: 64px;
+  /* space reserved for the header before it renders (avoids layout shift);
+     measured decorated Lenovo header: 222px phones, 196px >= 600px, 228px >= 1200px */
+  --nav-height: 222px;
 
   /* buttons — Lenovo CTA: Montserrat bold, 8px radius, 40px tall, no shadow */
   --button-font-family: var(--heading-font-family);
@@ -154,10 +155,15 @@
   }
 }
 
-/* header block breakpoint — kept at 768px so the header renders unchanged */
-@media (width >= 768px) {
+@media (width >= 600px) {
   :root {
-    --nav-height: 75px;
+    --nav-height: 196px;
+  }
+}
+
+@media (width >= 1200px) {
+  :root {
+    --nav-height: 228px;
   }
 }
 
