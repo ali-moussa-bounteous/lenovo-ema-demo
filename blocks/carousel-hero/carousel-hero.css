@@ -1,0 +1,192 @@
+/* Carousel Hero — structural layout only (brand styling applied in the design pass) */
+
+.carousel-hero {
+  position: relative;
+}
+
+.carousel-hero .carousel-hero-viewport {
+  overflow: hidden;
+}
+
+.carousel-hero .carousel-hero-slides {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: transform var(--transition-normal);
+}
+
+.carousel-hero .carousel-hero-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--gap-lg);
+}
+
+.carousel-hero .carousel-hero-slide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-md);
+}
+
+.carousel-hero .carousel-hero-slide-content > * {
+  margin: 0;
+}
+
+.carousel-hero .carousel-hero-slide-logo {
+  line-height: 0;
+}
+
+.carousel-hero .carousel-hero-slide-logo img {
+  width: auto;
+  max-width: 180px;
+  max-height: 64px;
+  object-fit: contain;
+}
+
+.carousel-hero .carousel-hero-slide-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-sm) var(--gap-md);
+}
+
+.carousel-hero .carousel-hero-slide-actions p {
+  margin: 0;
+}
+
+.carousel-hero .carousel-hero-slide-image {
+  overflow: hidden;
+  border-radius: var(--border-radius-sm);
+  line-height: 0;
+}
+
+.carousel-hero .carousel-hero-slide-image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* controls: prev, next, progress, pause — centered row below slides */
+.carousel-hero .carousel-hero-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-lg);
+}
+
+.carousel-hero .carousel-hero-controls button {
+  position: relative;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid currentcolor;
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.carousel-hero .carousel-hero-prev::after,
+.carousel-hero .carousel-hero-next::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: solid currentcolor;
+  border-width: 0 2px 2px 0;
+  transform: translate(-30%, -50%) rotate(135deg);
+}
+
+.carousel-hero .carousel-hero-next::after {
+  transform: translate(-70%, -50%) rotate(-45deg);
+}
+
+/* pause icon (two bars) / play icon when paused */
+.carousel-hero .carousel-hero-pause::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 12px;
+  border: solid currentcolor;
+  border-width: 0 2px;
+  transform: translate(-50%, -50%);
+}
+
+.carousel-hero.is-paused .carousel-hero-pause::after {
+  width: 0;
+  height: 0;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent currentcolor;
+  transform: translate(-35%, -50%);
+}
+
+.carousel-hero .carousel-hero-progress {
+  flex: 1 1 auto;
+  max-width: 360px;
+  height: 2px;
+  margin: 0 var(--gap-md);
+  background-color: currentcolor;
+  opacity: 0.3;
+  position: relative;
+}
+
+.carousel-hero .carousel-hero-progress-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background-color: currentcolor;
+}
+
+.carousel-hero .carousel-hero-progress-bar.is-running {
+  animation: carousel-hero-progress var(--carousel-hero-interval, 6s) linear forwards;
+}
+
+.carousel-hero.is-paused .carousel-hero-progress-bar.is-running {
+  animation-play-state: paused;
+}
+
+@keyframes carousel-hero-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-hero .carousel-hero-slides {
+    transition: none;
+  }
+}
+
+@media (width >= 600px) {
+  .carousel-hero .carousel-hero-progress {
+    margin: 0 var(--gap-lg);
+  }
+}
+
+@media (width >= 900px) {
+  /* text left 1/3, image right 2/3 */
+  .carousel-hero .carousel-hero-slide {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: center;
+    gap: var(--gap-xl);
+  }
+
+  .carousel-hero .carousel-hero-slide-image img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (width >= 1200px) {
+  .carousel-hero .carousel-hero-slide {
+    gap: 48px;
+  }
+}

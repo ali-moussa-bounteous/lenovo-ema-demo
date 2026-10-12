@@ -1,0 +1,31 @@
+{
+  "variantName": "carousel-hero",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light-tinted",
+    "density": "spacious",
+    "purpose": "homepage-hero-carousel",
+    "imagePattern": "large-rounded-photo-right",
+    "structure": "logo + heading + text + CTA | image",
+    "layout": "text left 1/3, image right 2/3, controls centered below",
+    "notes": "pale pink band background, purple filled buttons, progress bar + pause"
+  },
+  "contentPattern": {
+    "structure": "one row per slide, 2 cells: cell 1 = slide photo; cell 2 = optional logo image, H1 (first slide) / H2 title, paragraph, CTA links (<strong> for primary)",
+    "buttonCount": 2,
+    "imageCount": 2
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-29T15:39:41.506Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

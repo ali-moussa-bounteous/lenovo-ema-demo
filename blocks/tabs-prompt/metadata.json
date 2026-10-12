@@ -1,0 +1,31 @@
+{
+  "variantName": "tabs-prompt",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light-gradient",
+    "density": "moderate",
+    "purpose": "guided-prompt-selector",
+    "imagePattern": "result-thumbnails",
+    "structure": "heading + pill labels + 3 result cards",
+    "layout": "pill button wrap grid, result panel below",
+    "notes": "rounded panel with peach-to-lilac gradient, white pill buttons"
+  },
+  "contentPattern": {
+    "structure": "optional single-cell intro row (heading and/or panel background image); then one row per prompt, 2 cells: cell 1 = prompt label, cell 2 = result items authored sequentially as image, H3 title, paragraph, link (each image starts a new result)",
+    "buttonCount": 9,
+    "imageCount": 27
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-29T15:39:41.506Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

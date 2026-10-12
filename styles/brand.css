@@ -1,0 +1,43 @@
+/*
+ * Lenovo brand tokens
+ * Extracted from https://www.lenovo.com/us/en/ (see migration-work/brand.json)
+ *
+ * Fonts: Montserrat (headings, buttons) + Noto Sans (body), both served from
+ * Google Fonts via head.html. Size-adjusted local fallbacks are declared in styles.css.
+ */
+
+:root {
+  /* fonts */
+  --heading-font-family: montserrat, montserrat-fallback, sans-serif;
+  --body-font-family: noto sans, noto-sans-fallback, sans-serif;
+
+  /* base colors */
+  --background-color: #fff;
+  --text-color: #1e0013;
+  --link-color: #3a3a3a;
+  --link-hover-color: #e1251b;
+
+  /* brand palette */
+  --brand-purple: #7a126b;
+  --brand-purple-dark: #4d144a;
+  --brand-purple-light: #f1e1ed;
+  --brand-red: #e1251b;
+  --brand-ink: #171717;
+  --brand-gray-light: #e4e4e4;
+  --brand-gray-border: #ccc;
+
+  /* spacing — sections are separated by 96px (2 x 48px) on the source */
+  --section-padding: 48px 0;
+
+  /* source nav (utility bar + merch banner + main nav) is 173px tall.
+     Kept as a reference token only; the header block keeps using --nav-height. */
+  --brand-nav-height: 173px;
+
+  /* heading sizes (desktop, >= 1200px) — measured on default-content headings */
+  --heading-size-xxl: 56px;
+  --heading-size-xl: 40px;
+  --heading-size-l: 28px;
+  --heading-size-m: 24px;
+  --heading-size-s: 20px;
+  --heading-size-xs: 16px;
+}
