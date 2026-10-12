@@ -15,6 +15,7 @@
  */
 
 const MOBILE_CLONE_CLASS = 'footer-social-mobile';
+const DESKTOP = window.matchMedia('(width >= 900px)');
 
 /**
  * Fetches the footer fragment (metadata-independent) and returns
@@ -311,27 +312,54 @@ function buildApps(section) {
 
 /**
  * Link columns: every heading starts a new column with the following lists.
+ * Below the desktop breakpoint each column collapses behind a toggle in its
+ * heading; collapsed panels are inert so their links are skipped.
  * @param {Element} section
  */
 function buildLinkColumns(section) {
   const nav = createElement('nav', 'footer-links');
-  let column = null;
+  const columns = [];
+  let panel = null;
   [...section.children].forEach((child) => {
     if (/^H[1-6]$/.test(child.tagName)) {
-      column = createElement('div', 'footer-links-column');
+      const column = createElement('div', 'footer-links-column');
       const heading = adopt(child);
       heading.className = 'footer-links-heading';
-      column.append(heading);
+      const label = heading.textContent.trim();
+      panel = createElement('div', 'footer-links-panel', { id: `footer-links-${columns.length}` });
+      const toggle = createElement('button', 'footer-links-toggle', {
+        type: 'button',
+        'aria-label': label,
+        'aria-expanded': 'false',
+        'aria-controls': panel.id,
+      });
+      heading.append(toggle);
+      column.append(heading, panel);
       nav.append(column);
-    } else if (column) {
+      columns.push({ toggle, panel, label });
+    } else if (panel) {
       const node = adopt(child);
       if (node.tagName === 'UL') {
         node.className = 'footer-links-list';
-        node.setAttribute('aria-label', column.firstElementChild.textContent.trim());
+        node.setAttribute('aria-label', columns[columns.length - 1].label);
       }
-      column.append(node);
+      // the panel animates its height; its single child does the clipping
+      if (!panel.firstElementChild) panel.append(createElement('div', 'footer-links-panel-inner'));
+      panel.firstElementChild.append(node);
     }
   });
+
+  const sync = () => columns.forEach(({ toggle, panel: p }) => {
+    p.inert = !DESKTOP.matches && toggle.getAttribute('aria-expanded') !== 'true';
+  });
+  columns.forEach(({ toggle }) => {
+    toggle.addEventListener('click', () => {
+      toggle.setAttribute('aria-expanded', toggle.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+      sync();
+    });
+  });
+  DESKTOP.addEventListener('change', sync);
+  sync();
   return nav;
 }
 
@@ -359,6 +387,7 @@ export default async function decorate(block) {
   const main = createElement('div', 'footer-main');
   const top = createElement('div', 'footer-top');
   const regions = { top: [], body: [] };
+  let mobileSocial = null;
 
   sections.forEach((section) => {
     const role = classifySection(section);
@@ -366,12 +395,10 @@ export default async function decorate(block) {
     else if (role === 'social') {
       const social = buildSocial(section);
       regions.top.push(social);
-      // hidden duplicate of the social list for the small-screen layout
-      const clone = social.cloneNode(true);
-      clone.classList.add(MOBILE_CLONE_CLASS);
-      clone.setAttribute('aria-hidden', 'true');
-      clone.querySelectorAll('a').forEach((a) => a.setAttribute('tabindex', '-1'));
-      regions.body.push(clone);
+      // the small-screen layout shows the social list below the link columns;
+      // CSS displays exactly one of the two copies at any width
+      mobileSocial = social.cloneNode(true);
+      mobileSocial.classList.add(MOBILE_CLONE_CLASS);
     } else if (role === 'locale') regions.top.push(buildLocale(section));
     else if (role === 'apps') regions.body.push(buildApps(section));
     else if (role === 'links') regions.body.push(buildLinkColumns(section));
@@ -381,6 +408,11 @@ export default async function decorate(block) {
   top.append(...regions.top);
   if (regions.top.length) main.append(top);
   main.append(...regions.body);
+  if (mobileSocial) {
+    const links = main.querySelector('.footer-links');
+    if (links) links.after(mobileSocial);
+    else main.append(mobileSocial);
+  }
   block.prepend(main);
 
   // placeholder links ("#") are hooks for third-party tools — never jump to top
