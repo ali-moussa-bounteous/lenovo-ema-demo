@@ -1,13 +1,14 @@
 /*
  * columns-links: side-by-side link panels (heading + bulleted links + decorative image).
  * Values measured on lenovo.com/us/en/gaming (.shop-links-ul); see
- * migration-work/columns-links-extracted.css. The source keeps the panels side by
- * side at every width, hides the image on phones, flows the links into
- * 4-row columns on tablets and floats the image right of the list on desktop.
+ * migration-work/columns-links-extracted.css. On phones and tablets (real device
+ * user agents) the source stacks the panels and hides the image on phones; it
+ * flows the links into 4-row columns on tablets, and from desktop width shows
+ * the panels side by side with the image right of the list.
  */
 .columns-links {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 21px;
 }
 

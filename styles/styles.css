@@ -597,6 +597,27 @@ main > .section.sidebar .sidebar-aside {
   margin-top: var(--gap-2xl);
 }
 
+/* sidebar headings are compact (measured: 24px / 20px in the main column,
+   16px in the aside, bold, at every width) */
+main > .section.sidebar .default-content-wrapper :is(h2, h3) {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+main > .section.sidebar .sidebar-main .default-content-wrapper h2 {
+  font-size: 24px;
+}
+
+main > .section.sidebar .sidebar-main .default-content-wrapper h3 {
+  margin-top: var(--gap-sm);
+  font-size: 20px;
+}
+
+main > .section.sidebar .sidebar-aside .default-content-wrapper :is(h2, h3) {
+  font-size: 16px;
+}
+
 @media (width >= 900px) {
   main > .section.sidebar .sidebar-layout {
     display: grid;
