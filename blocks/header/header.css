@@ -480,6 +480,30 @@ header .nav-search-category-button {
   font-size: 16px;
 }
 
+header .nav-skip-link:any-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background: var(--background-color);
+  color: var(--brand-ink);
+  font-family: var(--header-utility-font);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+header .nav-skip-link:not(:focus) {
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 header .nav-search-category-label {
   position: absolute;
   overflow: hidden;

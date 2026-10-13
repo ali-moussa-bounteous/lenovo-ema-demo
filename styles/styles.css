@@ -348,6 +348,11 @@ blockquote p:last-child {
   margin-bottom: 0;
 }
 
+/* skip-link target: focus lands on main without ringing the whole page */
+main:focus {
+  outline: none;
+}
+
 main > div {
   margin: 0;
 }

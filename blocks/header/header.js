@@ -762,6 +762,18 @@ function toggleMobileMenu(nav, force) {
  * loads and decorates the header
  * @param {Element} block The header block element
  */
+/** "Skip to main content": first tab stop, visible only while focused. */
+function buildSkipLink() {
+  const main = document.querySelector('main');
+  if (!main) return null;
+  if (!main.id) main.id = 'main';
+  // programmatically focusable so keyboard focus actually moves past the header
+  main.tabIndex = -1;
+  const link = el('a', 'nav-skip-link', 'Skip to main content');
+  link.href = `#${main.id}`;
+  return link;
+}
+
 export default async function decorate(block) {
   const fragment = await fetchNavFragment();
   block.textContent = '';
@@ -849,5 +861,5 @@ export default async function decorate(block) {
   });
 
   const wrapper = el('div', 'nav-wrapper', nav);
-  block.append(wrapper);
+  block.append(...[buildSkipLink()].filter(Boolean), wrapper);
 }
