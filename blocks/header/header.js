@@ -319,16 +319,20 @@ function buildSearch(nav, section) {
   categoryButton.type = 'button';
   categoryButton.setAttribute('aria-haspopup', 'listbox');
   categoryButton.setAttribute('aria-expanded', 'false');
-  categoryButton.setAttribute('aria-label', 'Category');
+  // name = hidden "Category:" + the visible value, so it contains the visible text
+  const categoryLabel = el('span', 'nav-search-category-label', 'Category: ');
   const categoryValue = el('span', 'nav-search-category-value', categories[0] || '');
-  categoryButton.append(categoryValue);
+  categoryButton.append(categoryLabel, categoryValue);
   if (caretIcon) {
     caretIcon.alt = '';
     caretIcon.classList.add('nav-search-caret');
     categoryButton.append(caretIcon);
   }
   const categoryOptions = el('ul', 'nav-search-categories');
+  categoryOptions.id = 'nav-search-categories';
   categoryOptions.setAttribute('role', 'listbox');
+  categoryOptions.setAttribute('aria-label', 'Category');
+  categoryButton.setAttribute('aria-controls', categoryOptions.id);
   const hidden = el('input');
   hidden.type = 'hidden';
   hidden.name = 'category';
@@ -348,9 +352,48 @@ function buildSearch(nav, section) {
     });
     categoryOptions.append(option);
   });
+  // keyboard: open with Enter/Space/arrows, move with arrows/Home/End,
+  // pick with Enter/Space, close with Escape or Tab
+  const optionList = () => [...categoryOptions.children];
+  const openCategories = () => {
+    categoryButton.setAttribute('aria-expanded', 'true');
+    (categoryOptions.querySelector('[aria-selected="true"]') || optionList()[0])?.focus();
+  };
+  const closeCategories = (refocus) => {
+    categoryButton.setAttribute('aria-expanded', 'false');
+    if (refocus) categoryButton.focus();
+  };
   categoryButton.addEventListener('click', () => {
-    const expanded = categoryButton.getAttribute('aria-expanded') === 'true';
-    categoryButton.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    if (categoryButton.getAttribute('aria-expanded') === 'true') closeCategories(false);
+    else openCategories();
+  });
+  categoryButton.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    e.preventDefault();
+    openCategories();
+  });
+  categoryOptions.addEventListener('keydown', (e) => {
+    const list = optionList();
+    const i = list.indexOf(document.activeElement);
+    const moves = {
+      ArrowDown: Math.min(i + 1, list.length - 1),
+      ArrowUp: Math.max(i - 1, 0),
+      Home: 0,
+      End: list.length - 1,
+    };
+    if (e.key in moves) {
+      e.preventDefault();
+      list[moves[e.key]].focus();
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      list[i]?.click();
+      categoryButton.focus();
+    } else if (e.key === 'Escape') {
+      e.stopPropagation();
+      closeCategories(true);
+    } else if (e.key === 'Tab') {
+      closeCategories(false);
+    }
   });
   category.append(categoryButton, categoryOptions);
 

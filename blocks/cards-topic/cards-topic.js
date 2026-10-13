@@ -37,6 +37,12 @@ function buildItem(row) {
       { media: '(width >= 600px)', width: '750' },
       { width: '600' },
     ]);
+    // keep the intrinsic size so the browser reserves the image's space (no layout shift)
+    const newImg = picture.querySelector('img');
+    if (img.getAttribute('width') && img.getAttribute('height')) {
+      newImg.width = img.getAttribute('width');
+      newImg.height = img.getAttribute('height');
+    }
     media.append(picture);
     li.append(media);
   }

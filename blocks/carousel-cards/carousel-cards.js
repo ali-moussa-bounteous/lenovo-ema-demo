@@ -178,7 +178,8 @@ export default function decorate(block) {
 
   const prev = createButton('carousel-cards-prev', 'Previous slide', track.id);
   const next = createButton('carousel-cards-next', 'Next slide', track.id);
-  block.append(prev, next);
+  // controls precede the slides in reading/tab order (APG carousel)
+  viewport.before(prev, next);
 
   let current = -1;
 
@@ -191,8 +192,9 @@ export default function decorate(block) {
       if (isActive) slide.setAttribute('aria-current', 'true');
       else slide.removeAttribute('aria-current');
     });
-    prev.disabled = current === 0;
-    next.disabled = current === slides.length - 1;
+    // aria-disabled keeps the buttons focusable at either end
+    prev.setAttribute('aria-disabled', current === 0);
+    next.setAttribute('aria-disabled', current === slides.length - 1);
   };
 
   const scrollToSlide = (index) => {
@@ -227,8 +229,8 @@ export default function decorate(block) {
     });
   }, { passive: true });
 
-  prev.addEventListener('click', () => scrollToSlide(current - 1));
-  next.addEventListener('click', () => scrollToSlide(current + 1));
+  prev.addEventListener('click', () => { if (current > 0) scrollToSlide(current - 1); });
+  next.addEventListener('click', () => { if (current < slides.length - 1) scrollToSlide(current + 1); });
 
   // keyboard focus on a slide's link brings that slide to the center
   track.addEventListener('focusin', (e) => {

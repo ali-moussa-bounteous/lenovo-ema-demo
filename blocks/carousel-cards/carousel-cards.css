@@ -304,8 +304,8 @@ main .carousel-cards .carousel-cards-slide-cta a.button:focus-visible {
   background-color: var(--brand-gray-border);
 }
 
-.carousel-cards .carousel-cards-prev:disabled,
-.carousel-cards .carousel-cards-next:disabled {
+.carousel-cards .carousel-cards-prev[aria-disabled='true'],
+.carousel-cards .carousel-cards-next[aria-disabled='true'] {
   opacity: 0.4;
   cursor: default;
 }

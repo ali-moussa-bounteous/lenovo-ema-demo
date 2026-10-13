@@ -94,6 +94,10 @@
   width: 180px;
   max-width: none;
   height: 180px;
+
+  /* the source squashes the 202x294 product shot into the square; crop it instead */
+  object-fit: cover;
+  object-position: top;
   transition: opacity 0.35s, transform 0.35s;
 }
 
