@@ -1,10 +1,15 @@
-/* hero-banner: contained photo with text layered on the left (structural only) */
+/*
+ * hero-banner: contained photo with a flat dark overlay and text on the left.
+ * Values from https://www.lenovo.com/us/en/gaming/ (.resources-hero-image).
+ * Block height follows the text; the photo fills it from the top-left corner.
+ * Site fonts (Montserrat / Noto Sans) are kept on purpose; the source uses Lato.
+ */
 .hero-banner {
   position: relative;
   display: grid;
   grid-template: 'stack' auto / 1fr;
-  min-height: 200px;
   overflow: hidden;
+  color: #fff;
 }
 
 .hero-banner > .hero-banner-media,
@@ -16,10 +21,11 @@
   position: relative;
 }
 
+/* the photo never sizes the block: it is laid over the stacked text area */
 .hero-banner .hero-banner-media picture {
+  position: absolute;
+  inset: 0;
   display: block;
-  width: 100%;
-  height: 100%;
 }
 
 .hero-banner .hero-banner-media img {
@@ -27,63 +33,67 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: left top;
 }
 
-/* left-to-right scrim so overlaid text stays legible on any photo */
+/* source overlay: rgba(0, 0, 0, 0.6) across the whole banner */
 .hero-banner .hero-banner-media::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgb(0 0 0 / 75%) 0%, rgb(0 0 0 / 45%) 55%, rgb(0 0 0 / 0%) 100%);
+  background: rgb(0 0 0 / 60%);
 }
 
 .hero-banner .hero-banner-content {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 24px 16px;
-  color: #fff;
+  padding: 3% 0 3% 20px;
+  line-height: 22px;
 }
 
-/* global heading/paragraph colours would otherwise override the overlay text colour */
-.hero-banner .hero-banner-content :is(h1, h2, h3, h4, h5, h6, p, li) {
+.hero-banner .hero-banner-content :is(h1, h2, h3, h4, h5, h6) {
+  width: 98%;
+  margin: 0;
+  padding: 0 0 20px;
   color: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: normal;
 }
 
-.hero-banner .hero-banner-content > :first-child {
-  margin-top: 0;
-}
-
-.hero-banner .hero-banner-content > :last-child {
-  margin-bottom: 0;
+.hero-banner .hero-banner-content :is(p, li) {
+  width: 98%;
+  margin: 0;
+  padding: 0 0 20px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: normal;
 }
 
 .hero-banner.hero-banner-no-image .hero-banner-content {
   color: inherit;
 }
 
-@media (width >= 600px) {
-  .hero-banner {
-    min-height: 225px;
-  }
-
-  .hero-banner .hero-banner-content {
-    padding: 24px;
-    max-width: 75%;
-  }
-}
-
 @media (width >= 900px) {
-  .hero-banner .hero-banner-content {
-    max-width: 55%;
+  .hero-banner .hero-banner-content :is(h1, h2, h3, h4, h5, h6) {
+    width: 64%;
+    font-size: 24px;
+  }
+
+  .hero-banner .hero-banner-content :is(p, li) {
+    width: 80%;
+    font-size: 15px;
   }
 }
 
 @media (width >= 1200px) {
   .hero-banner .hero-banner-content {
-    max-width: 50%;
+    padding: 4% 0 4% 20px;
+  }
+
+  .hero-banner .hero-banner-content :is(p, li) {
+    width: 54%;
   }
 }

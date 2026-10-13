@@ -1,8 +1,55 @@
-/* carousel-cards: coverflow card carousel over a band background (structural only) */
+/*
+ * carousel-cards: coverflow card carousel over a full-width band background.
+ * Values from https://www.lenovo.com/us/en/gaming/ ("Why Lenovo Gaming?" carousel).
+ * Site fonts (Montserrat / Noto Sans) are kept on purpose; the source uses Lato.
+ *
+ * Phones / tablets: 292px cards, image on top, solid red text panel at the
+ * bottom with a "notch" headline panel, underlined "Learn More" link.
+ * >= 1200px: fixed 464px active card with two neighbours each side; the
+ * neighbours are scaled with transform (layout size never changes, so native
+ * scroll-snap stays stable) and their content is counter-sized with
+ * --carousel-cards-scale so text keeps the source's on-screen sizes.
+ */
+
+/* full-bleed band: no section padding, no content max-width */
+main > .section.carousel-cards-container {
+  padding: 0;
+}
+
+main > .section > .carousel-cards-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
 .carousel-cards {
   position: relative;
   isolation: isolate;
-  padding: 24px 0;
+  padding: 63px 0 50px;
+  background-color: #16191e;
+  color: #fff;
+}
+
+/* decorative chevron at the top of the band (two rounded bars) */
+.carousel-cards::before,
+.carousel-cards::after {
+  content: '';
+  position: absolute;
+  top: 26px;
+  width: 16px;
+  height: 4px;
+  border-radius: 20px;
+  background-color: #fff;
+  pointer-events: none;
+}
+
+.carousel-cards::before {
+  left: calc(50% - 12px);
+  transform: rotate(45deg);
+}
+
+.carousel-cards::after {
+  left: calc(50% - 3px);
+  transform: rotate(-45deg);
 }
 
 .carousel-cards .carousel-cards-background {
@@ -28,17 +75,18 @@
   container-type: inline-size;
 }
 
-/* native horizontal scroller with snap; sizes use the viewport container (cqi)
-   so the inline padding lets the first/last card center */
+/* native horizontal scroller with snap; phones align the card 32px from the
+   left edge (padding-inline-end lets the last card reach that position) */
 .carousel-cards .carousel-cards-slides {
-  --carousel-cards-card: 80cqi;
+  --carousel-cards-card: 292px;
 
   position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 32px;
   overflow: auto hidden;
-  padding: 40px calc((100cqi - var(--carousel-cards-card)) / 2) 16px;
+  padding: 8px calc(100cqi - 32px - var(--carousel-cards-card)) 8px 32px;
+  scroll-padding-inline: 32px;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
@@ -47,24 +95,31 @@
   display: none;
 }
 
+/* the slide is the card */
 .carousel-cards .carousel-cards-slide {
+  --carousel-cards-scale: 1;
+
   position: relative;
-  display: flex;
   flex: 0 0 var(--carousel-cards-card);
-  flex-direction: column;
+  height: 496px;
   min-width: 0;
-  scroll-snap-align: center;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgb(0 0 0 / 24%);
+  scroll-snap-align: start;
 }
 
 .carousel-cards .carousel-cards-slide-media {
-  position: relative;
-  aspect-ratio: 4 / 3;
-}
-
-.carousel-cards .carousel-cards-slide-art {
   position: absolute;
   inset: 0;
+}
+
+/* card art fills the top of the card; the text panel covers the rest */
+.carousel-cards .carousel-cards-slide-art {
+  position: absolute;
+  inset: 0 0 240px;
   overflow: hidden;
+  background-color: #2b2f36;
 }
 
 .carousel-cards .carousel-cards-slide-art picture,
@@ -78,69 +133,134 @@
   object-fit: cover;
 }
 
-/* character art sits on top of the card art and pops above its top edge */
+/* character art: as large as fits the card, centred, under the text panel */
 .carousel-cards .carousel-cards-slide-character {
   position: absolute;
-  inset: -12% 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
-.carousel-cards .carousel-cards-slide-character picture {
+.carousel-cards .carousel-cards-slide-character picture,
+.carousel-cards .carousel-cards-slide-character img {
   display: block;
+  width: 100%;
   height: 100%;
 }
 
 .carousel-cards .carousel-cards-slide-character img {
-  display: block;
-  height: 100%;
-  width: auto;
-  max-width: 100%;
   object-fit: contain;
 }
 
+/* text panel: bottom-anchored, grows with its content. ::before is the
+   10px-inset headline panel, ::after the full-width band below the art. */
 .carousel-cards .carousel-cards-slide-body {
-  flex: 1;
-  padding: 16px;
-  background-color: rgb(0 0 0 / 35%);
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 26px 26px 30px;
 }
 
-.carousel-cards .carousel-cards-slide-body > :first-child {
-  margin-top: 0;
+.carousel-cards .carousel-cards-slide-body::before,
+.carousel-cards .carousel-cards-slide-body::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  background-color: rgb(185 75 75);
+}
+
+.carousel-cards .carousel-cards-slide-body::before {
+  inset: 10px;
+  border-radius: 0 0 12px 12px;
+}
+
+.carousel-cards .carousel-cards-slide-body::after {
+  inset: auto 0 0;
+  height: 240px;
+}
+
+.carousel-cards .carousel-cards-slide-body > * {
+  flex-shrink: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.carousel-cards .carousel-cards-slide-body .carousel-cards-slide-title {
+  margin: 0 0 12px;
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 34px;
+  letter-spacing: normal;
+}
+
+.carousel-cards .carousel-cards-slide-body > p {
+  margin: 0 0 14px;
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: normal;
 }
 
 .carousel-cards .carousel-cards-slide-body > :last-child {
   margin-bottom: 0;
 }
 
-.carousel-cards .carousel-cards-slide-cta {
-  text-align: center;
-}
-
-.carousel-cards .carousel-cards-slide-cta a {
+/* CTA: underlined white text link on phones / tablets */
+main .carousel-cards p.carousel-cards-slide-cta {
   display: block;
   margin: 0;
 }
 
-/* prev / next round buttons at the sides */
+main .carousel-cards .carousel-cards-slide-cta a.button:any-link {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  white-space: normal;
+}
+
+main .carousel-cards .carousel-cards-slide-cta a.button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* prev / next round buttons: visible from 1200px; below that they stay in
+   the tab order (and for assistive tech) and appear when focused */
 .carousel-cards .carousel-cards-prev,
 .carousel-cards .carousel-cards-next {
   position: absolute;
   top: 50%;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   margin: 0;
   padding: 0;
   border: 0;
-  border-radius: 50%;
-  background-color: rgb(255 255 255 / 90%);
-  color: #000;
+  border-radius: 999px;
+  background-color: rgb(230 226 228);
+  color: rgb(42 42 42);
   cursor: pointer;
   transform: translateY(-50%);
 }
@@ -151,6 +271,15 @@
 
 .carousel-cards .carousel-cards-next {
   right: 8px;
+}
+
+.carousel-cards .carousel-cards-prev:not(:focus-visible),
+.carousel-cards .carousel-cards-next:not(:focus-visible) {
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .carousel-cards .carousel-cards-prev::before,
@@ -170,6 +299,11 @@
   transform: translateX(-2px) rotate(45deg);
 }
 
+.carousel-cards .carousel-cards-prev:hover,
+.carousel-cards .carousel-cards-next:hover {
+  background-color: var(--brand-gray-border);
+}
+
 .carousel-cards .carousel-cards-prev:disabled,
 .carousel-cards .carousel-cards-next:disabled {
   opacity: 0.4;
@@ -178,74 +312,225 @@
 
 .carousel-cards .carousel-cards-prev:focus-visible,
 .carousel-cards .carousel-cards-next:focus-visible {
-  outline: 2px solid currentcolor;
+  outline: 2px solid #fff;
   outline-offset: 2px;
 }
 
 .carousel-cards.is-single .carousel-cards-slides {
   justify-content: center;
-  overflow: visible;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .carousel-cards .carousel-cards-slide {
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .carousel-cards .carousel-cards-slide-character picture {
+    transition: transform 0.6s;
+  }
+
+  main .carousel-cards .carousel-cards-slide-cta a.button:any-link {
+    transition: transform 0.2s, opacity 0.2s, color 0.2s, background-color 0.2s;
   }
 }
 
+/* tablet: larger chevron and type; cards centre so the JS centring and
+   the snap position agree at every width */
 @media (width >= 600px) {
-  .carousel-cards .carousel-cards-slides {
-    --carousel-cards-card: 50cqi;
-
-    gap: 20px;
-  }
-}
-
-/* coverflow: three cards visible, center (active) card enlarged */
-@media (width >= 900px) {
   .carousel-cards {
-    padding: 32px 0;
+    padding-top: 69px;
+  }
+
+  .carousel-cards::before,
+  .carousel-cards::after {
+    top: 27px;
+    width: 26px;
+    height: 6px;
+  }
+
+  .carousel-cards::before {
+    left: calc(50% - 20px);
+  }
+
+  .carousel-cards::after {
+    left: calc(50% - 5px);
   }
 
   .carousel-cards .carousel-cards-slides {
-    --carousel-cards-card: 30cqi;
-
-    gap: 24px;
-    padding-top: 56px;
-    padding-bottom: 24px;
+    padding-inline: calc((100cqi - var(--carousel-cards-card)) / 2);
+    scroll-padding-inline: 0;
   }
 
   .carousel-cards .carousel-cards-slide {
-    transform: scale(0.88);
+    scroll-snap-align: center;
   }
 
-  .carousel-cards .carousel-cards-slide.is-active {
-    z-index: 1;
-    transform: scale(1);
+  .carousel-cards .carousel-cards-slide-body .carousel-cards-slide-title {
+    font-size: 32px;
+    line-height: 36px;
   }
 
-  /* the CTA is only shown on the active card */
-  .carousel-cards .carousel-cards-slide:not(.is-active) .carousel-cards-slide-cta {
-    visibility: hidden;
-  }
-
-  .carousel-cards .carousel-cards-prev {
-    left: 16px;
-  }
-
-  .carousel-cards .carousel-cards-next {
-    right: 16px;
+  .carousel-cards .carousel-cards-slide-body > p {
+    margin-bottom: 20px;
+    line-height: 24px;
   }
 }
 
+/* desktop coverflow: 464px active card, neighbours at 344px, outer cards at
+   224px (visual sizes via transform); everything inside the card is divided
+   by --carousel-cards-scale so on-screen sizes match the source */
 @media (width >= 1200px) {
+  .carousel-cards {
+    padding: 82px 0 37px;
+  }
+
+  /* 464px boxes on a 436px pitch: -14px margins, padding re-centres the ends */
   .carousel-cards .carousel-cards-slides {
-    --carousel-cards-card: 28cqi;
+    --carousel-cards-card: 464px;
+
+    gap: 0;
+    padding-inline: calc((100cqi - var(--carousel-cards-card)) / 2 + 14px);
+  }
+
+  .carousel-cards .carousel-cards-slide {
+    --carousel-cards-scale: 0.4828;
+
+    height: 485px;
+    margin-inline: -14px;
+    border-radius: calc(12px / var(--carousel-cards-scale));
+    box-shadow: 0 0 calc(8px / var(--carousel-cards-scale)) rgb(0 0 0 / 24%);
+    transform: scale(var(--carousel-cards-scale));
+  }
+
+  /* outer cards sit 32px from their neighbours */
+  .carousel-cards .carousel-cards-slide.is-active ~ .carousel-cards-slide {
+    transform: translateX(-120px) scale(var(--carousel-cards-scale));
+  }
+
+  .carousel-cards .carousel-cards-slide:has(~ .carousel-cards-slide.is-active) {
+    transform: translateX(120px) scale(var(--carousel-cards-scale));
+  }
+
+  .carousel-cards .carousel-cards-slide.is-active + .carousel-cards-slide,
+  .carousel-cards .carousel-cards-slide:has(+ .carousel-cards-slide.is-active) {
+    --carousel-cards-scale: 0.7414;
+
+    transform: scale(var(--carousel-cards-scale));
+  }
+
+  .carousel-cards .carousel-cards-slide.is-active {
+    --carousel-cards-scale: 1;
+
+    z-index: 1;
+    transform: none;
+  }
+
+  .carousel-cards .carousel-cards-slide-art {
+    inset: 0 0 50%;
+  }
+
+  /* translucent two-layer red panel over the lower half of the card */
+  .carousel-cards .carousel-cards-slide-body {
+    inset: 50% -1px 0;
+    overflow: hidden;
+    padding:
+      calc(32px / var(--carousel-cards-scale))
+      calc(42px / var(--carousel-cards-scale))
+      calc(42px / var(--carousel-cards-scale));
+    border-radius:
+      0 0 calc(12px / var(--carousel-cards-scale))
+      calc(12px / var(--carousel-cards-scale));
+    background-color: rgb(185 75 75 / 80%);
+  }
+
+  .carousel-cards .carousel-cards-slide-body::before {
+    inset:
+      0 calc(10px / var(--carousel-cards-scale))
+      calc(10px / var(--carousel-cards-scale));
+    border-radius: 0;
+    background-color: rgb(185 75 75 / 80%);
+  }
+
+  .carousel-cards .carousel-cards-slide-body::after {
+    content: none;
+  }
+
+  .carousel-cards .carousel-cards-slide-body .carousel-cards-slide-title {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+    font-size: calc(24px / var(--carousel-cards-scale));
+    line-height: calc(32px / var(--carousel-cards-scale));
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .carousel-cards .carousel-cards-slide-body > p {
+    margin: calc(16px / var(--carousel-cards-scale)) 0 0;
+    font-size: calc(16px / var(--carousel-cards-scale));
+    line-height: calc(24px / var(--carousel-cards-scale));
+  }
+
+  .carousel-cards .carousel-cards-slide-body > p:not(.carousel-cards-slide-cta) {
+    display: -webkit-box;
+    overflow: hidden;
+    opacity: 0.8;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  /* CTA: full-width blue pill, only on the active card */
+  main .carousel-cards p.carousel-cards-slide-cta {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  main .carousel-cards .carousel-cards-slide:not(.is-active) p.carousel-cards-slide-cta {
+    display: none;
+  }
+
+  main .carousel-cards .carousel-cards-slide-cta a.button:any-link {
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    height: 48px;
+    border: 1px solid rgb(41 78 149);
+    border-radius: 100px;
+    background-color: rgb(41 78 149);
+    line-height: 45px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  main .carousel-cards .carousel-cards-slide-cta a.button:hover {
+    background-color: var(--brand-gray-light);
+    color: var(--button-accent-color);
+    transform: translateY(-1px);
+  }
+
+  .carousel-cards .carousel-cards-prev {
+    left: 64px;
+  }
+
+  .carousel-cards .carousel-cards-next {
+    right: 64px;
   }
 
   .carousel-cards .carousel-cards-prev,
-  .carousel-cards .carousel-cards-next {
-    width: 44px;
-    height: 44px;
+  .carousel-cards .carousel-cards-prev:not(:focus-visible),
+  .carousel-cards .carousel-cards-next,
+  .carousel-cards .carousel-cards-next:not(:focus-visible) {
+    top: 330px;
+    overflow: visible;
+    width: 40px;
+    height: 40px;
+    clip-path: none;
+  }
+}
+
+/* desktop hover: the character rises out of the panel */
+@media (width >= 1200px) and (hover: hover) {
+  .carousel-cards .carousel-cards-slide:hover .carousel-cards-slide-character picture {
+    transform: translateY(-10%);
   }
 }

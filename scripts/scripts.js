@@ -191,7 +191,8 @@ function decorateButtonVariants(main) {
 function decorateSidebarSections(main) {
   main.querySelectorAll(':scope > .section.sidebar').forEach((section) => {
     const wrappers = [...section.children];
-    const blockWrappers = wrappers.filter((w) => w.querySelector(':scope > .block'));
+    // metadata tables are not content blocks (they can survive as blocks locally)
+    const blockWrappers = wrappers.filter((w) => w.querySelector(':scope > .block:not(.section-metadata, .metadata)'));
     if (blockWrappers.length < 2) return;
     const asideStart = wrappers.indexOf(blockWrappers[1]);
     const layout = document.createElement('div');

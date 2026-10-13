@@ -1,91 +1,162 @@
-/* columns-links: side-by-side panels of heading + link list with a decorative image (structural only) */
+/*
+ * columns-links: side-by-side link panels (heading + bulleted links + decorative image).
+ * Values measured on lenovo.com/us/en/gaming (.shop-links-ul); see
+ * migration-work/columns-links-extracted.css. The source keeps the panels side by
+ * side at every width, hides the image on phones, flows the links into
+ * 4-row columns on tablets and floats the image right of the list on desktop.
+ */
 .columns-links {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 21px;
+}
+
+.columns-links.columns-links-1-cols {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .columns-links .columns-links-panel {
-  position: relative;
   display: grid;
-  grid-template-columns: 1fr minmax(0, 40%);
-  align-items: end;
-  gap: 12px;
-  padding: 16px 20px;
-  overflow: hidden;
-  background-color: rgb(255 255 255 / 10%);
-}
-
-.columns-links .columns-links-panel.columns-links-no-image {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 20px 0 20px 20px;
+  border-radius: 4px;
+  background-color: #26212a;
+  color: #fff;
 }
 
 .columns-links .columns-links-text {
-  align-self: start;
   min-width: 0;
-}
-
-.columns-links .columns-links-text > :first-child {
-  margin-top: 0;
+  padding-bottom: 20px;
 }
 
 .columns-links .columns-links-text > :last-child {
   margin-bottom: 0;
 }
 
+.columns-links .columns-links-text .columns-links-title {
+  margin: 0;
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 27px;
+  letter-spacing: normal;
+}
+
 .columns-links .columns-links-list {
-  margin: 8px 0 0;
-  padding-left: 1.25em;
+  margin: 0;
+  padding: 10px 0 0 25px;
+  font-size: 18px;
+  line-height: 22px;
   list-style: disc;
 }
 
 .columns-links .columns-links-list li {
-  margin: 4px 0;
+  padding: 5px 0 0;
+  font-size: 16px;
 }
 
 /* published markup may wrap list-item content in a <p> */
 .columns-links .columns-links-list li > p {
   margin: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: normal;
 }
 
-.columns-links .columns-links-list a {
-  color: inherit;
+.columns-links .columns-links-list a:any-link {
+  color: #fff;
+  font-weight: inherit;
   text-decoration: none;
 }
 
-.columns-links .columns-links-list a:hover,
-.columns-links .columns-links-list a:focus-visible {
+.columns-links .columns-links-list a:any-link:hover {
+  color: #fff;
   text-decoration: underline;
 }
 
+/* image: hidden on phones (source) */
 .columns-links .columns-links-image {
-  place-self: end end;
+  display: none;
 }
 
-.columns-links .columns-links-image picture,
+.columns-links .columns-links-image picture {
+  display: block;
+}
+
 .columns-links .columns-links-image img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  width: 180px;
+  max-width: none;
+  height: 180px;
+  transition: opacity 0.35s, transform 0.35s;
 }
 
+.columns-links .columns-links-panel:hover .columns-links-image img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* tablet: links flow into 4-row columns, image sits under the list, right aligned */
 @media (width >= 600px) {
-  .columns-links .columns-links-panel {
-    padding: 20px 24px;
+  .columns-links .columns-links-text {
+    width: 64%;
+    padding-bottom: 0;
+  }
+
+  .columns-links .columns-links-list {
+    display: grid;
+    grid-template-rows: repeat(4, min-content);
+    grid-auto-flow: column;
+  }
+
+  /* 180px box with a 10px left inset: the image's last 10px are clipped
+     until the panel is hovered and the image slides left */
+  .columns-links .columns-links-image {
+    display: block;
+    justify-self: end;
+    box-sizing: border-box;
+    width: 180px;
+    padding-left: 10px;
+    overflow: hidden;
+  }
+
+  .columns-links .columns-links-no-image .columns-links-text {
+    width: auto;
   }
 }
 
 @media (width >= 900px) {
   .columns-links {
-    grid-auto-flow: column;
     grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
     grid-template-columns: none;
-    gap: 20px;
   }
 }
 
+/* desktop: plain list (63%) with the image floated right, top-aligned under the heading */
 @media (width >= 1200px) {
-  .columns-links {
-    gap: 24px;
+  .columns-links .columns-links-panel {
+    grid-template-columns: minmax(0, 63%) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .columns-links .columns-links-panel.columns-links-no-image {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .columns-links .columns-links-text {
+    width: auto;
+  }
+
+  .columns-links .columns-links-list {
+    display: block;
+  }
+
+  .columns-links .columns-links-image {
+    margin-top: 27px;
   }
 }
