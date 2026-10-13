@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-product",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "compact",
+    "purpose": "product-recommendations",
+    "imagePattern": "product-cutout",
+    "structure": "image + name + price + link",
+    "layout": "single-column stack, small image left, name top-right, large price bottom-right",
+    "notes": "black tiles with grey border and rounded corners; source is a personalized merchandising reel - prices are a static snapshot"
+  },
+  "contentPattern": {
+    "structure": "2 columns, one row per product. Cell 1 = product image; Cell 2 = paragraph with the linked product name, then a price paragraph (e.g. bold $2,095.99). The name link makes the whole tile clickable; prices are static authored text",
+    "buttonCount": 0,
+    "imageCount": 5
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/gaming/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-12T00:00:00.000Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

@@ -1,0 +1,89 @@
+/* hero-banner: contained photo with text layered on the left (structural only) */
+.hero-banner {
+  position: relative;
+  display: grid;
+  grid-template: 'stack' auto / 1fr;
+  min-height: 200px;
+  overflow: hidden;
+}
+
+.hero-banner > .hero-banner-media,
+.hero-banner > .hero-banner-content {
+  grid-area: stack;
+}
+
+.hero-banner .hero-banner-media {
+  position: relative;
+}
+
+.hero-banner .hero-banner-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-banner .hero-banner-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* left-to-right scrim so overlaid text stays legible on any photo */
+.hero-banner .hero-banner-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(0 0 0 / 75%) 0%, rgb(0 0 0 / 45%) 55%, rgb(0 0 0 / 0%) 100%);
+}
+
+.hero-banner .hero-banner-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px 16px;
+  color: #fff;
+}
+
+/* global heading/paragraph colours would otherwise override the overlay text colour */
+.hero-banner .hero-banner-content :is(h1, h2, h3, h4, h5, h6, p, li) {
+  color: inherit;
+}
+
+.hero-banner .hero-banner-content > :first-child {
+  margin-top: 0;
+}
+
+.hero-banner .hero-banner-content > :last-child {
+  margin-bottom: 0;
+}
+
+.hero-banner.hero-banner-no-image .hero-banner-content {
+  color: inherit;
+}
+
+@media (width >= 600px) {
+  .hero-banner {
+    min-height: 225px;
+  }
+
+  .hero-banner .hero-banner-content {
+    padding: 24px;
+    max-width: 75%;
+  }
+}
+
+@media (width >= 900px) {
+  .hero-banner .hero-banner-content {
+    max-width: 55%;
+  }
+}
+
+@media (width >= 1200px) {
+  .hero-banner .hero-banner-content {
+    max-width: 50%;
+  }
+}

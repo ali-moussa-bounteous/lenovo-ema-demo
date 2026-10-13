@@ -1,0 +1,91 @@
+/* columns-links: side-by-side panels of heading + link list with a decorative image (structural only) */
+.columns-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.columns-links .columns-links-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 40%);
+  align-items: end;
+  gap: 12px;
+  padding: 16px 20px;
+  overflow: hidden;
+  background-color: rgb(255 255 255 / 10%);
+}
+
+.columns-links .columns-links-panel.columns-links-no-image {
+  grid-template-columns: 1fr;
+}
+
+.columns-links .columns-links-text {
+  align-self: start;
+  min-width: 0;
+}
+
+.columns-links .columns-links-text > :first-child {
+  margin-top: 0;
+}
+
+.columns-links .columns-links-text > :last-child {
+  margin-bottom: 0;
+}
+
+.columns-links .columns-links-list {
+  margin: 8px 0 0;
+  padding-left: 1.25em;
+  list-style: disc;
+}
+
+.columns-links .columns-links-list li {
+  margin: 4px 0;
+}
+
+/* published markup may wrap list-item content in a <p> */
+.columns-links .columns-links-list li > p {
+  margin: 0;
+}
+
+.columns-links .columns-links-list a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.columns-links .columns-links-list a:hover,
+.columns-links .columns-links-list a:focus-visible {
+  text-decoration: underline;
+}
+
+.columns-links .columns-links-image {
+  place-self: end end;
+}
+
+.columns-links .columns-links-image picture,
+.columns-links .columns-links-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (width >= 600px) {
+  .columns-links .columns-links-panel {
+    padding: 20px 24px;
+  }
+}
+
+@media (width >= 900px) {
+  .columns-links {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-template-columns: none;
+    gap: 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .columns-links {
+    gap: 24px;
+  }
+}

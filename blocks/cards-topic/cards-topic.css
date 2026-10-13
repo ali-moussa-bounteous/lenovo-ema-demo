@@ -1,0 +1,95 @@
+/* cards-topic: stacked list of image-left / text-right topic rows (structural only) */
+.cards-topic > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.cards-topic .cards-topic-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid rgb(128 128 128 / 60%);
+  overflow: hidden;
+}
+
+.cards-topic .cards-topic-image {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.cards-topic .cards-topic-image picture,
+.cards-topic .cards-topic-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cards-topic .cards-topic-image img {
+  object-fit: cover;
+}
+
+.cards-topic .cards-topic-body {
+  padding: 12px 16px 16px;
+  min-width: 0;
+}
+
+.cards-topic .cards-topic-body > :first-child {
+  margin-top: 0;
+}
+
+.cards-topic .cards-topic-body > :last-child {
+  margin-bottom: 0;
+}
+
+.cards-topic .cards-topic-title a,
+.cards-topic .cards-topic-link a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.cards-topic .cards-topic-link a {
+  font-weight: bold;
+}
+
+@media (width >= 600px) {
+  .cards-topic .cards-topic-item {
+    grid-template-columns: 45% 1fr;
+    align-items: stretch;
+  }
+
+  .cards-topic .cards-topic-item.cards-topic-no-image {
+    grid-template-columns: 1fr;
+  }
+
+  /* text drives the row height; the photo fills its column */
+  .cards-topic .cards-topic-image {
+    position: relative;
+    aspect-ratio: auto;
+    min-height: 160px;
+  }
+
+  .cards-topic .cards-topic-image picture {
+    position: absolute;
+    inset: 0;
+  }
+
+  .cards-topic .cards-topic-body {
+    padding: 12px 20px;
+    align-self: center;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-topic > ul {
+    gap: 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .cards-topic .cards-topic-body {
+    padding: 12px 24px;
+  }
+}

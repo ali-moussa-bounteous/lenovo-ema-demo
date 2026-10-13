@@ -1,0 +1,31 @@
+{
+  "variantName": "hero-banner",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "compact",
+    "purpose": "page-intro-banner",
+    "imagePattern": "contained-photo-background",
+    "structure": "image + heading + text",
+    "layout": "contained width (~1240px), ~225px tall, text block left half over darkened photo",
+    "notes": "no CTA, white text, left-to-right dark gradient over photo"
+  },
+  "contentPattern": {
+    "structure": "1 column, 2 rows. Row 1 (cell 1) = banner image; Row 2 (cell 1) = H1 heading + intro paragraph(s). Image may also share the text cell; the image loads eagerly as the first visible image of the page",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/gaming/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-12T00:00:00.000Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

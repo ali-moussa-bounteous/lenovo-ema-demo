@@ -1,0 +1,31 @@
+{
+  "variantName": "carousel-cards",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "benefit-card-carousel",
+    "imagePattern": "layered-card-art-with-character",
+    "structure": "bg image + character image + heading + text + CTA",
+    "layout": "coverflow: 3 cards visible, active center card enlarged; round arrows at sides",
+    "notes": "full-bleed blue/teal background art; cards with coral/red lower panel, white text; purple pill CTA on the active card; character art pops above card top"
+  },
+  "contentPattern": {
+    "structure": "2 columns. Optional first row = a single image cell with no text (band background, decorative). Then one row per slide: Cell 1 = slide background art image followed by the character image (two images, background first); Cell 2 = H3 headline, description paragraph, and a final link-only paragraph (e.g. 'Learn More') rendered as a button. Slides scroll horizontally with snap; from 900px three cards show with the centered (active) card enlarged; prev/next buttons and arrow keys move between slides; no autoplay",
+    "buttonCount": 5,
+    "imageCount": 11
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/gaming/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-12T00:00:00.000Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

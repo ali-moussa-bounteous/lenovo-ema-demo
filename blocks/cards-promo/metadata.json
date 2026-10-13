@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-promo",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "moderate",
+    "purpose": "sidebar-promo-boxes",
+    "imagePattern": "noimg",
+    "structure": "heading + text + button",
+    "layout": "stacked boxes, centered text, full-width white button",
+    "notes": "dark grey (#2b2b33-ish) boxes, bold white title, white button with black text"
+  },
+  "contentPattern": {
+    "structure": "1 column, one row per promo box. Cell 1 = H3 heading, description paragraph, and a final link-only paragraph that renders as a full-width button. Boxes stack vertically (side-by-side on tablet when space allows)",
+    "buttonCount": 2,
+    "imageCount": 0
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/gaming/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-12T00:00:00.000Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

@@ -1,9 +1,11 @@
 {
+  "type": "da",
   "sites": {
     "lenovo-ema-demo": {
       "previewOrg": "ali-moussa-bounteous",
       "previewSite": "lenovo-ema-demo",
-      "contentHostUrl": "https://content.da.live/ali-moussa-bounteous/lenovo-ema-demo/"
+      "contentHostUrl": "https://content.da.live/ali-moussa-bounteous/lenovo-ema-demo/",
+      "libraryUrl": "https://main--lenovo-ema-demo--ali-moussa-bounteous.aem.page/tools/sidekick/library.json"
     }
   }
 }
