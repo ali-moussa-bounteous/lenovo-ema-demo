@@ -1,0 +1,98 @@
+/* cards-topic: stacked list of image-left / text-right topic rows.
+   Values measured on lenovo.com/us/en/gaming (.left-img-right-txt);
+   site fonts are kept (heading / body font families come from styles.css). */
+.cards-topic > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.cards-topic .cards-topic-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid rgb(255 255 255 / 33.3%);
+  border-radius: 4px;
+}
+
+/* photo keeps its natural (landscape) ratio */
+.cards-topic .cards-topic-image picture,
+.cards-topic .cards-topic-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cards-topic .cards-topic-body {
+  padding: 10px 5px;
+  min-width: 0;
+}
+
+.cards-topic .cards-topic-body > * {
+  margin: 0;
+}
+
+.cards-topic .cards-topic-title {
+  padding-bottom: 5px;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 22px;
+  letter-spacing: normal;
+}
+
+.cards-topic .cards-topic-body p {
+  padding: 0 10px 5px 0;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: normal;
+}
+
+.cards-topic .cards-topic-body p.cards-topic-link {
+  padding: 0;
+  font-size: 16px;
+}
+
+.cards-topic .cards-topic-title a:any-link,
+.cards-topic .cards-topic-link a:any-link {
+  color: inherit;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.cards-topic .cards-topic-title a:hover,
+.cards-topic .cards-topic-link a:hover {
+  color: var(--link-hover-color);
+}
+
+@media (width >= 600px) {
+  /* image column 46% + 4% gutter, text column 50% */
+  .cards-topic .cards-topic-item {
+    grid-template-columns: 46% 1fr;
+    column-gap: 4%;
+  }
+
+  .cards-topic .cards-topic-item.cards-topic-no-image {
+    grid-template-columns: 1fr;
+  }
+
+  .cards-topic .cards-topic-image {
+    align-self: start;
+  }
+
+  .cards-topic .cards-topic-body {
+    padding: 8px 0;
+    align-self: center;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-topic .cards-topic-title {
+    font-size: 20px;
+  }
+
+  .cards-topic .cards-topic-body p {
+    font-size: 16px;
+  }
+}

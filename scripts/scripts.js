@@ -182,11 +182,38 @@ function decorateButtonVariants(main) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
+/**
+ * Sidebar sections (section style `sidebar`): everything up to the second
+ * block is the main column, the second block and what follows is the aside.
+ * Both go into one layout container so the section keeps a single content width.
+ * @param {Element} main The container element
+ */
+function decorateSidebarSections(main) {
+  main.querySelectorAll(':scope > .section.sidebar').forEach((section) => {
+    const wrappers = [...section.children];
+    // metadata tables are not content blocks (they can survive as blocks locally)
+    const blockWrappers = wrappers.filter((w) => w.querySelector(':scope > .block:not(.section-metadata, .metadata)'));
+    if (blockWrappers.length < 2) return;
+    const asideStart = wrappers.indexOf(blockWrappers[1]);
+    const layout = document.createElement('div');
+    layout.className = 'sidebar-layout';
+    const content = document.createElement('div');
+    content.className = 'sidebar-main';
+    const aside = document.createElement('aside');
+    aside.className = 'sidebar-aside';
+    content.append(...wrappers.slice(0, asideStart));
+    aside.append(...wrappers.slice(asideStart));
+    layout.append(content, aside);
+    section.append(layout);
+  });
+}
+
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateSidebarSections(main);
   decorateButtons(main);
   decorateButtonVariants(main);
 

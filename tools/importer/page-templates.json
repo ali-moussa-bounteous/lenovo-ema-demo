@@ -54,7 +54,6 @@
           ]
         }
       ],
-      "urlPattern": "/us/*",
       "sections": [
         {
           "id": "section-1",
@@ -201,6 +200,124 @@
             ".section-header .cmp-title__text",
             ".section-header .cmp-title__body-wrapper a"
           ]
+        }
+      ],
+      "urlPattern": "/us/*"
+    },
+    {
+      "name": "gaming",
+      "urls": [
+        "https://www.lenovo.com/us/en/gaming/"
+      ],
+      "representativeUrl": "https://www.lenovo.com/us/en/gaming/",
+      "description": "Lenovo gaming landing page (/us/en/gaming/)",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": [
+            ".resources-hero-image"
+          ]
+        },
+        {
+          "name": "cards-topic",
+          "instances": [
+            ".left-img-right-txt"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            ".edu-right-box-bg-img"
+          ]
+        },
+        {
+          "name": "cards-product",
+          "instances": [
+            ".widgets_merchandising_reel_pc_container .product"
+          ]
+        },
+        {
+          "name": "columns-links",
+          "instances": [
+            ".shop-links-ul"
+          ]
+        },
+        {
+          "name": "carousel-cards",
+          "instances": [
+            "section.carousel-espot"
+          ]
+        }
+      ],
+      "urlPattern": "/us/en/*",
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Breadcrumb + resources hero banner",
+          "selector": [
+            "main.main_content > div:has(.resources-hero-image)",
+            ".resources-hero-image"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-banner"
+          ],
+          "defaultContent": [
+            ".breadcrumb-links"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "Explore Gaming Topics + sidebar (deals, recommended products)",
+          "selector": [
+            "main.main_content > div:has(.left-img-right-txt)"
+          ],
+          "style": "sidebar",
+          "blocks": [
+            "cards-topic",
+            "cards-promo",
+            "cards-product"
+          ],
+          "defaultContent": [
+            ".drop-down-bdr .head_left_text",
+            ".recommended_head"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "Shop / Explore link panels",
+          "selector": [
+            "main.main_content > div:has(.shop-links-ul)"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-links"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "Why Lenovo Gaming? title band",
+          "selector": [
+            ".gaminghp_common_title_wrap"
+          ],
+          "style": "title-band",
+          "blocks": [],
+          "defaultContent": [
+            ".gaminghp_common_title_wrap h2"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Why Lenovo Gaming? card carousel",
+          "selector": [
+            "section.carousel-espot"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-cards"
+          ],
+          "defaultContent": []
         }
       ]
     }

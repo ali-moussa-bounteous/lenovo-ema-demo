@@ -1,0 +1,136 @@
+/*
+ * cards-product: compact product tiles (image left, name + price right).
+ * Values measured on lenovo.com/us/en/gaming (.widgets_merchandising_reel_pc_container):
+ * black tile, 1px #bcbcbc border, 12px radius, 16px between tiles, 130px min height,
+ * image column 40% (min 100px, 10px/15px padding), name 14px/17px bold, price 24px/32px.
+ */
+.cards-product > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  /* source equalises tile heights across the reel */
+  grid-auto-rows: 1fr;
+  gap: 16px;
+}
+
+.cards-product .cards-product-item {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  min-height: 130px;
+  border: 1px solid rgb(188 188 188);
+  border-radius: 12px;
+  background-color: #000;
+  color: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cards-product .cards-product-linked:hover {
+  border-color: rgb(171 168 177);
+  box-shadow: 0 0 6px 0 rgb(0 0 0 / 25%);
+}
+
+.cards-product .cards-product-image {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 1 auto;
+  width: 40%;
+  min-width: 100px;
+  padding: 10px 15px;
+}
+
+.cards-product .cards-product-image picture {
+  display: block;
+  width: 100%;
+}
+
+.cards-product .cards-product-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.cards-product .cards-product-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+  min-width: 0;
+  padding: 15px 7px 15px 0;
+}
+
+/* tile without an image: text starts at the tile edge like the image column would */
+.cards-product .cards-product-item > .cards-product-body:only-child {
+  padding-left: 15px;
+}
+
+.cards-product .cards-product-body > * {
+  margin: 0;
+}
+
+.cards-product .cards-product-name {
+  min-height: 34px;
+  margin-bottom: 20px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: normal;
+  overflow-wrap: break-word;
+  color: #fff;
+}
+
+.cards-product .cards-product-body > .cards-product-price {
+  margin-top: auto;
+  font-family: var(--body-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: normal;
+  color: #fff;
+}
+
+/* published markup bolds names/prices (<strong><a>, <strong>$x</strong>); source weights win */
+.cards-product .cards-product-name strong,
+.cards-product .cards-product-name b,
+.cards-product .cards-product-price strong,
+.cards-product .cards-product-price b {
+  font-weight: inherit;
+}
+
+main .cards-product .cards-product-name a:any-link {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+}
+
+/* stretched link: the whole tile is clickable */
+.cards-product .cards-product-linked .cards-product-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+}
+
+main .cards-product .cards-product-linked .cards-product-link:focus-visible {
+  text-decoration: underline;
+}
+
+@media (width >= 600px) {
+  .cards-product > ul {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (width >= 900px) {
+  /* sidebar column: single stack, tiles inset 16px like the source reel */
+  .cards-product > ul {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 16px;
+  }
+}

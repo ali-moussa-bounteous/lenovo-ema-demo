@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-topic",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "moderate",
+    "purpose": "topic-category-list",
+    "imagePattern": "landscape-photo-left",
+    "structure": "image + title + description + link",
+    "layout": "single-column stacked list, image ~45% left, text right",
+    "notes": "black rows with 1px grey border, white underlined title link and underlined bold 'Explore All Articles' link"
+  },
+  "contentPattern": {
+    "structure": "2 columns, one row per topic. Cell 1 = landscape photo; Cell 2 = H3 heading containing the topic link, description paragraph, and a final link-only paragraph (e.g. 'Explore All Articles', may be bold). Items stack image-on-top on mobile and image-left (~45%) / text-right from 600px",
+    "buttonCount": 0,
+    "imageCount": 5
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/gaming/",
+        "screenshot": "migration-work/screenshot.png"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-12T00:00:00.000Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}
