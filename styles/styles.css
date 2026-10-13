@@ -572,7 +572,60 @@ main > .section:not(:has(> *)) {
   display: none;
 }
 
+/* --- PAGE THEME: dark (page metadata "Theme: dark", e.g. gaming pages) ---
+   Measured on lenovo.com/us/en/gaming: the content area is black with white
+   text; header and footer stay light, so only main is themed. */
+body.dark main {
+  --text-color: #fff;
+  --link-color: #fff;
+  --link-hover-color: var(--brand-gray-light);
+
+  background-color: #000;
+  color: var(--text-color);
+}
+
 /* --- SECTION METADATA STYLES --- */
+
+/* Sidebar: main column + aside (see decorateSidebarSections in scripts.js).
+   Stacked on small screens; ~3:1 columns with a 16px gap from 900px. */
+main > .section.sidebar .sidebar-main > * + *,
+main > .section.sidebar .sidebar-aside > * + * {
+  margin-top: var(--gap-lg);
+}
+
+main > .section.sidebar .sidebar-aside {
+  margin-top: var(--gap-2xl);
+}
+
+@media (width >= 900px) {
+  main > .section.sidebar .sidebar-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1026fr) minmax(0, 339fr);
+    column-gap: 16px;
+    align-items: start;
+  }
+
+  main > .section.sidebar .sidebar-aside {
+    margin-top: 0;
+  }
+}
+
+/* Title band: full-width strip with a centred heading */
+main > .section.title-band {
+  padding: 15px 0;
+  background-color: #16191e;
+  text-align: center;
+}
+
+main > .section.title-band h1,
+main > .section.title-band h2,
+main > .section.title-band h3 {
+  margin: 0;
+  color: #fff;
+  font-size: var(--heading-size-m);
+  font-weight: 700;
+  line-height: 1.25;
+}
 
 /* Highlight / Light: Lenovo light plum bg */
 main .section.light,
