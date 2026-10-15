@@ -111,12 +111,31 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
   }
+
+  /* four cards: 2 x 2 until there is room for a single row of four */
+  .cards-featured > ul[data-count='4'],
+  .cards-featured > ul[data-count='8'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 1200px) {
+  .cards-featured > ul[data-count='4'],
+  .cards-featured > ul[data-count='8'] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 /*
  * White cards (not the spotlight card): keep the panel's own text colour inside dark/accent sections, whose
- * global heading/paragraph colours would otherwise make text unreadable here.
+ * global heading/paragraph/link colours would otherwise make text unreadable here.
  */
-main > .section .cards-featured .cards-featured-item:not(.cards-featured-overlay) :is(h1, h2, h3, h4, h5, h6, p, li) {
+main > .section .cards-featured .cards-featured-item:not(.cards-featured-overlay) :is(h1, h2, h3, h4, h5, h6, p, li),
+main > .section:is(.dark, .accent) .cards-featured .cards-featured-item:not(.cards-featured-overlay) a:any-link:not(.button) {
+  color: inherit;
+}
+
+/* Spotlight card: light text over its photo, whatever the section's own text colours are. */
+main > .section .cards-featured .cards-featured-overlay :is(h1, h2, h3, h4, h5, h6, p, li, a:not(.button)) {
   color: inherit;
 }

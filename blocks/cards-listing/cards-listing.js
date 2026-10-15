@@ -103,7 +103,16 @@ export default function decorate(block) {
       head.append(...headEls);
       li.append(head);
     } else {
+      // promo tile: no product structure. Its image is a brand logo (kept at
+      // its own size, not boxed like a product shot) and a leading bold-only
+      // paragraph is its headline.
       li.classList.add('cards-listing-promo');
+      if (media) media.className = 'cards-listing-promo-logo';
+      const [lead] = restEls;
+      if (lead && lead.tagName === 'P' && !lead.querySelector('a, img')
+        && lead.querySelector('strong, b') && lead.textContent.trim() === lead.querySelector('strong, b').textContent.trim()) {
+        lead.classList.add('cards-listing-promo-title');
+      }
     }
     if (media) li.append(media);
     const body = document.createElement('div');

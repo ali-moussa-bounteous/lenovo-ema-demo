@@ -31,10 +31,20 @@ function markActions(body) {
   });
 }
 
+/** Height / width of an authored image, or 0 when it carries no dimensions. */
+function ratio(img) {
+  const w = parseInt(img && img.getAttribute('width'), 10);
+  const h = parseInt(img && img.getAttribute('height'), 10);
+  return w > 0 && h > 0 ? h / w : 0;
+}
+
 /**
  * Cards (featured): rounded promo cards - photo on top, heading, paragraph or
- * bullet list and a button pinned to the card bottom. The first card is a
- * spotlight: its text is layered over its photo.
+ * bullet list and a button pinned to the card bottom. When the first card's
+ * photo is markedly taller than the next card's (a portrait spotlight image),
+ * that card becomes a spotlight: its text is layered over its photo. Cards
+ * with equal photos all render alike. Four cards (or a multiple of four)
+ * lay out 4-up on wide screens, otherwise 3-up.
  * One authored row per card: photo | heading + text/list + link.
  * @param {Element} block
  */
@@ -43,12 +53,14 @@ export default function decorate(block) {
   if (active.length) block.dataset.options = active.join(' ');
 
   const ul = document.createElement('ul');
+  const ratios = [];
   [...block.children].forEach((row) => {
     if (!row.textContent.trim() && !row.querySelector('img')) return;
     const li = document.createElement('li');
     li.className = 'cards-featured-item';
 
     const img = row.querySelector('img');
+    ratios.push(ratio(img));
     if (img) {
       const media = document.createElement('div');
       media.className = 'cards-featured-image';
@@ -68,12 +80,15 @@ export default function decorate(block) {
     ul.append(li);
   });
 
-  // first card: text over photo (only when it has both)
+  // first card: text over photo, only when it has both and its photo is a
+  // distinctly taller (portrait) spotlight image than the following card's
   const first = ul.firstElementChild;
-  if (first && ul.children.length > 1
+  const [firstRatio, nextRatio] = ratios;
+  if (first && ul.children.length > 1 && firstRatio && nextRatio && firstRatio >= nextRatio * 1.5
     && first.querySelector('.cards-featured-image') && first.querySelector('.cards-featured-body')) {
     first.classList.add('cards-featured-overlay');
   }
+  ul.dataset.count = String(ul.children.length);
 
   block.replaceChildren(ul);
 }

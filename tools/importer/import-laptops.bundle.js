@@ -1117,8 +1117,16 @@ var CustomImportScript = (() => {
         if (!img.getAttribute("src")) img.remove();
       });
       element.querySelectorAll(
-        '.fujiSmallMediumLayout > img, [class^="cms_background_layout_"] > img, .cms_layoutBox_auto_height > img'
+        '.fujiSmallMediumLayout > img, [class*="cms_background_layout_"] > img, .cms_layoutBox_auto_height > img'
       ).forEach((img) => img.remove());
+      element.querySelectorAll('img[src*="/backgrounds/lenovo-gradient-portion-"]').forEach((img) => {
+        const holder = img.closest("picture") || img;
+        holder.remove();
+      });
+      element.querySelectorAll('[style*="gradient-portion"]').forEach((el) => {
+        el.style.removeProperty("background-image");
+        el.style.removeProperty("background");
+      });
       WebImporter.DOMUtils.remove(element, [
         "section.pc_left_facets",
         // filters, "Expand All", sort, price_sort dropdown

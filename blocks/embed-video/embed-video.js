@@ -53,6 +53,21 @@ function linkTitle(a) {
 }
 
 /**
+ * Text of the closest heading authored before the block in its section (the
+ * video's visible context), used when the block itself carries no title.
+ */
+function precedingHeading(block) {
+  const section = block.closest('.section');
+  if (!section) return '';
+  const headings = [...section.querySelectorAll('h1, h2, h3, h4, h5, h6')]
+    .filter((h) => !block.contains(h)
+      // eslint-disable-next-line no-bitwise
+      && (h.compareDocumentPosition(block) & Node.DOCUMENT_POSITION_FOLLOWING));
+  const h = headings[headings.length - 1];
+  return h ? h.textContent.trim() : '';
+}
+
+/**
  * Embed (video): a lightweight facade - poster image plus a play button. The
  * player iframe is only created when the visitor presses play, so no third
  * party script or frame loads with the page.
@@ -72,7 +87,7 @@ export default function decorate(block) {
   const textTitle = [...block.querySelectorAll('p, h1, h2, h3, h4, h5, h6')]
     .find((el) => !el.querySelector('a, img') && el.textContent.trim());
   const title = linkTitle(link) || (textTitle && textTitle.textContent.trim())
-    || (img && img.alt) || 'Video';
+    || (img && img.alt) || precedingHeading(block) || 'Video';
 
   const facade = document.createElement('div');
   facade.className = 'embed-video-facade';

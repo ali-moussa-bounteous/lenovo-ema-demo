@@ -76,10 +76,34 @@
   text-align: center;
 }
 
-/* promo tile (no product heading): content fills the tile in authored order */
+/* promo tile (no product heading): logo, headline, copy and button, centred */
+.cards-listing .cards-listing-promo {
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 32px;
+}
+
+.cards-listing .cards-listing-promo-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.cards-listing .cards-listing-promo-logo img {
+  display: block;
+  width: auto;
+  max-width: 160px;
+  height: auto;
+}
+
 .cards-listing .cards-listing-promo .cards-listing-body {
   align-items: center;
+  align-self: stretch;
   text-align: center;
+}
+
+.cards-listing .cards-listing-promo .cards-listing-actions {
+  margin-top: 8px;
+  align-self: stretch;
 }
 
 .cards-listing a:focus-visible {

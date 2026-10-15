@@ -240,6 +240,7 @@ main .cards-product.accessories .cards-product-tile-actions a {
  * Accessories option, white tiles: keep the panel's own text colour inside dark/accent sections, whose
  * global heading/paragraph colours would otherwise make text unreadable here.
  */
-main > .section .cards-product.accessories .cards-product-tile :is(h1, h2, h3, h4, h5, h6, p, li) {
+main > .section .cards-product.accessories .cards-product-tile :is(h1, h2, h3, h4, h5, h6, p, li, del),
+main > .section:is(.dark, .accent) .cards-product.accessories .cards-product-tile a:any-link:not(.button) {
   color: inherit;
 }

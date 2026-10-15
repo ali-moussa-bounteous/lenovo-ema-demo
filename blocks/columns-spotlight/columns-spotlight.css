@@ -156,6 +156,12 @@
  * White product panel: keep the panel's own text colour inside dark/accent sections, whose
  * global heading/paragraph colours would otherwise make text unreadable here.
  */
-main > .section .columns-spotlight .columns-spotlight-product :is(h1, h2, h3, h4, h5, h6, p, li) {
+main > .section .columns-spotlight .columns-spotlight-product :is(h1, h2, h3, h4, h5, h6, p, li),
+main > .section:is(.dark, .accent) .columns-spotlight .columns-spotlight-product a:any-link:not(.button) {
+  color: inherit;
+}
+
+/* Photo panel: light text over the photo, whatever the section's own text colours are. */
+main > .section .columns-spotlight .columns-spotlight-photo :is(h1, h2, h3, h4, h5, h6, p, li, a:not(.button)) {
   color: inherit;
 }

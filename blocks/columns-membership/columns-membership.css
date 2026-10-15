@@ -71,6 +71,18 @@
   text-align: start;
 }
 
+/*
+ * Copy over the background photo: light text, kept light inside sections whose
+ * global heading / paragraph / link colours would otherwise win over inheritance.
+ */
+.columns-membership:not(.columns-membership-no-image) {
+  color: #fff;
+}
+
+main > .section .columns-membership:not(.columns-membership-no-image) :is(h1, h2, h3, h4, h5, h6, p, li, a:not(.button)) {
+  color: inherit;
+}
+
 .columns-membership a:focus-visible {
   outline: 2px solid currentcolor;
   outline-offset: 3px;

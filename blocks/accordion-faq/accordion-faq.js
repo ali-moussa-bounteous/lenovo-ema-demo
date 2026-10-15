@@ -27,6 +27,41 @@ function inlineContent(nodes) {
   return out;
 }
 
+const FLOW_BLOCK = /^(P|DIV|UL|OL|DL|TABLE|BLOCKQUOTE|PRE|FIGURE|PICTURE|H[1-6]|HR)$/;
+
+/**
+ * Groups an answer's nodes into flow content: block elements are kept as is,
+ * runs of bare text / inline elements (an answer authored as plain text with
+ * inline links) are wrapped in a <p> each, so no raw text sits in the panel.
+ * @param {Node[]} nodes
+ * @returns {Node[]}
+ */
+function toParagraphs(nodes) {
+  const out = [];
+  let run = null;
+  const close = () => {
+    if (!run) return;
+    const first = run.firstChild;
+    const last = run.lastChild;
+    if (first && first.nodeType === Node.TEXT_NODE) first.textContent = first.textContent.replace(/^\s+/, '');
+    if (last && last.nodeType === Node.TEXT_NODE) last.textContent = last.textContent.replace(/\s+$/, '');
+    if (run.textContent.trim() || run.querySelector('img')) out.push(run);
+    run = null;
+  };
+  nodes.forEach((n) => {
+    if (n.nodeType === Node.ELEMENT_NODE && FLOW_BLOCK.test(n.tagName)) {
+      close();
+      if (n.textContent.trim() || n.querySelector('img')) out.push(n);
+      return;
+    }
+    if (n.nodeType !== Node.TEXT_NODE && n.nodeType !== Node.ELEMENT_NODE) return;
+    if (!run) run = document.createElement('p');
+    run.append(n);
+  });
+  close();
+  return out;
+}
+
 /**
  * Splits a row into question and answer nodes.
  * Usual shape: question cell | answer cell. A single-cell row is split at
@@ -80,10 +115,7 @@ export default function decorate(block) {
 
     const body = document.createElement('div');
     body.className = 'accordion-faq-answer';
-    answer.forEach((n) => {
-      if (n.nodeType === Node.TEXT_NODE && !n.textContent.trim()) return;
-      body.append(n);
-    });
+    body.append(...toParagraphs(answer));
     if (body.childNodes.length) details.append(body);
     else details.classList.add('accordion-faq-item-empty');
     items.push(details);

@@ -175,8 +175,20 @@ export default function transform(hookName, element, payload) {
     // --- CMS layout background gradients -------------------------------------
     // lenovo-gradient-portion-0N-desktop.jpg as direct children of layout wrappers.
     element.querySelectorAll(
-      '.fujiSmallMediumLayout > img, [class^="cms_background_layout_"] > img, .cms_layoutBox_auto_height > img',
+      '.fujiSmallMediumLayout > img, [class*="cms_background_layout_"] > img, .cms_layoutBox_auto_height > img',
     ).forEach((img) => img.remove());
+    // Some sit deeper on the live page (class lists start with container9999):
+    // match the gradient files themselves. The purple-gradient section style replaces them.
+    element.querySelectorAll('img[src*="/backgrounds/lenovo-gradient-portion-"]').forEach((img) => {
+      const holder = img.closest('picture') || img;
+      holder.remove();
+    });
+    // ...and as CSS backgrounds: the importer copies computed backgrounds inline and
+    // transformBackgroundImages later turns them into <img>, so drop them here.
+    element.querySelectorAll('[style*="gradient-portion"]').forEach((el) => {
+      el.style.removeProperty('background-image');
+      el.style.removeProperty('background');
+    });
 
     // --- Product listing (PLP) chrome — section "View All Thinkpad Products" ---
     WebImporter.DOMUtils.remove(element, [

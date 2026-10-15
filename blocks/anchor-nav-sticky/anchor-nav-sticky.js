@@ -75,29 +75,53 @@ export default function decorate(block) {
 
   const setCurrent = (entry) => {
     entries.forEach(({ link }) => link.removeAttribute('aria-current'));
-    if (!entry) return;
+    if (!entry) {
+      list.scrollTo({ left: 0 });
+      return;
+    }
     entry.link.setAttribute('aria-current', 'true');
     revealInList(list, entry.link);
   };
 
-  // jump targets land below the pinned bar
-  entries.forEach(({ link, target }) => {
-    link.addEventListener('click', () => {
-      target.style.scrollMarginTop = `${block.getBoundingClientRect().height + 8}px`;
-    });
-  });
+  // jump targets (clicks and hash loads alike) land below the pinned bar
+  const setScrollMargins = () => {
+    const offset = `${Math.ceil(block.getBoundingClientRect().height) + 8}px`;
+    entries.forEach(({ target }) => { target.style.scrollMarginTop = offset; });
+  };
+  setScrollMargins();
+  entries.forEach(({ link }) => link.addEventListener('click', setScrollMargins));
 
-  // scroll spy: an observer band covers the top 30% of the viewport; every
-  // time a target crosses its lower edge we record whether the target has
-  // reached it. The last reached target (in document order) is current, so
-  // several anchors inside one section each get their turn.
-  const reached = new Map();
-  const observer = new IntersectionObserver((records) => {
-    records.forEach((r) => {
-      const line = r.rootBounds ? r.rootBounds.bottom : window.innerHeight * 0.3;
-      reached.set(r.target, r.boundingClientRect.top < line);
-    });
-    setCurrent([...entries].reverse().find(({ target }) => reached.get(target)));
-  }, { rootMargin: '0px 0px -70% 0px' });
-  entries.forEach(({ target }) => observer.observe(target));
+  // scroll spy: the current entry is the last target (in document order) whose
+  // top has scrolled above a line just under the pinned bar. Reading positions
+  // on scroll (once per frame) also stays correct after large jumps, e.g. a
+  // scroll back to the top, which an IntersectionObserver band can miss.
+  let current;
+  let ticking = false;
+  let measured = false;
+  const update = () => {
+    ticking = false;
+    // the section is hidden while it loads: measure the bar once it has a size
+    if (!measured && block.offsetHeight) {
+      measured = true;
+      setScrollMargins();
+    }
+    const bar = block.getBoundingClientRect();
+    const line = bar.bottom + Math.min(window.innerHeight * 0.25, 200);
+    // nothing is "current" until the bar has reached the top and pinned
+    const next = bar.top > 1 ? undefined : [...entries].reverse()
+      .find(({ target }) => target.getBoundingClientRect().top <= line);
+    if (next === current) return;
+    current = next;
+    setCurrent(next);
+  };
+  const schedule = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  };
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', () => { setScrollMargins(); schedule(); }, { passive: true });
+  update();
+  // first paint of the section (it is revealed after decoration)
+  window.requestAnimationFrame(schedule);
 }
