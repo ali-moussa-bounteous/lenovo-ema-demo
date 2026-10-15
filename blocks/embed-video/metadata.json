@@ -1,0 +1,31 @@
+{
+  "variantName": "embed-video",
+  "baseBlock": "embed",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "feature-video",
+    "imagePattern": "poster-image",
+    "structure": "image + link"
+  },
+  "contentPattern": {
+    "structure": "1 column. Poster image and a YouTube (or Vimeo) link, in one or two rows. Optional plain-text line (or non-URL link text) is used as the player title. The iframe is created only when the play button is pressed.",
+    "notes": "",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/en/c/laptops/thinkpad/index"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-15T19:26:25.844Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

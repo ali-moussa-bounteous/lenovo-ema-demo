@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-reveal",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "moderate",
+    "purpose": "feature-reveal-tiles",
+    "imagePattern": "full-bleed-photo",
+    "structure": "image + icon + title + description"
+  },
+  "contentPattern": {
+    "structure": "collection-like standalone: one row per tile. Cell 1 = tall photo; cell 2 = icon image, heading (level kept as authored), description paragraph(s). Images are taken in order (first = photo, second = icon). The heading becomes a disclosure button; the description is revealed on hover, focus, or tap.",
+    "notes": "",
+    "buttonCount": 0,
+    "imageCount": 10
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/en/c/laptops/thinkpad/index"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-15T19:28:31.579Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

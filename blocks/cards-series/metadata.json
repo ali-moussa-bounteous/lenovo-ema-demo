@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-series",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "moderate",
+    "purpose": "category-navigation",
+    "imagePattern": "product-cutout",
+    "structure": "image + heading + label + link"
+  },
+  "contentPattern": {
+    "structure": "one row per card: cell 1 = product cutout image; cell 2 = heading, series label paragraph, link (button). 4 columns from 900px; may be authored as one block of 8 rows or two blocks of 4.",
+    "notes": "",
+    "buttonCount": 8,
+    "imageCount": 8
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/en/c/laptops/thinkpad/index"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-15T19:33:59.650Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

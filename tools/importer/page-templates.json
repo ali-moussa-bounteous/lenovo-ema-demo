@@ -205,6 +205,194 @@
       "urlPattern": "/us/*"
     },
     {
+      "name": "laptops",
+      "urls": [
+        "https://www.lenovo.com/us/en/c/laptops/thinkpad/"
+      ],
+      "representativeUrl": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+      "description": "Lenovo laptop series listing page (/us/en/c/laptops/{series}/), static product content",
+      "blocks": [
+        {
+          "name": "hero-brand",
+          "instances": [
+            "section.x-cms-ofp-fe-common-hero-v2"
+          ]
+        },
+        {
+          "name": "anchor-nav-sticky",
+          "instances": [
+            ".anchor_nav"
+          ]
+        },
+        {
+          "name": "embed-video",
+          "instances": [
+            ".dx-thinkpad-yt-video-facade"
+          ]
+        },
+        {
+          "name": "cards-reveal",
+          "instances": [
+            ".layouts_special_content_wishlist:has(section.student-espot)"
+          ]
+        },
+        {
+          "name": "columns-spotlight",
+          "instances": [
+            ".layouts_special_content_2columns11"
+          ]
+        },
+        {
+          "name": "cards-benefit",
+          "instances": [
+            ".layouts_special_content_3columns:has(.iconcard-vertical-list__item)"
+          ]
+        },
+        {
+          "name": "columns-membership",
+          "instances": [
+            ".card_immersive"
+          ]
+        },
+        {
+          "name": "cards-featured",
+          "instances": [
+            ".layouts_special_content_3columns:has(.small_content)"
+          ]
+        },
+        {
+          "name": "cards-series",
+          "instances": [
+            ".x-cms-ofp-fe-2c-widgets-segmentespots"
+          ]
+        },
+        {
+          "name": "cards-listing",
+          "instances": [
+            "section.productCard_container.card-product-list"
+          ]
+        },
+        {
+          "name": "cards-product",
+          "instances": [
+            ".SplitterProductCarousel:not(.layouts_special_content_2columns11 .SplitterProductCarousel)"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "section.x-cms-ai-ofp-fe-2c-accordion"
+          ]
+        }
+      ],
+      "urlPattern": "/us/en/c/laptops/*",
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "ThinkPad brand hero",
+          "selector": [
+            "main.main_content > div:has(section.x-cms-ofp-fe-common-hero-v2)",
+            "section.x-cms-ofp-fe-common-hero-v2"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-brand"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Sticky in-page anchor nav (alone in its section)",
+          "selector": [
+            "main.main_content > div:has(.anchor_nav)",
+            ".anchor_nav"
+          ],
+          "style": null,
+          "blocks": [
+            "anchor-nav-sticky"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Discover ThinkPad: intro, video, feature reveal tiles",
+          "selector": [
+            "main.main_content > div:has(.dx-thinkpad-yt-video-facade)"
+          ],
+          "style": "dark",
+          "blocks": [
+            "embed-video",
+            "cards-reveal"
+          ],
+          "defaultContent": [
+            "main.main_content > div:has(.dx-thinkpad-yt-video-facade) h2.dx-big-section-headline",
+            "main.main_content > div:has(.dx-thinkpad-yt-video-facade) p.dx-copy-offset"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "What's new, benefits, Lenovo Pro, featured ThinkPads, series categories",
+          "selector": [
+            "main.main_content > div:has(.layouts_special_content_2columns11)"
+          ],
+          "style": "purple-gradient",
+          "blocks": [
+            "columns-spotlight",
+            "cards-benefit",
+            "columns-membership",
+            "cards-featured",
+            "cards-series"
+          ],
+          "defaultContent": [
+            "h2.dx-small-fuji-card",
+            "span.dx-small-section-headline",
+            "main.main_content > div:has(.small_content):has(.fujiSmallMediumLayout) span.dx-big-section-headline",
+            "main.main_content > div:has(.x-cms-ofp-fe-2c-widgets-segmentespots) h2.dx-big-section-headline"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "View all ThinkPad products (static listing)",
+          "selector": [
+            "main.main_content > div:has(section.card-product-list)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-listing"
+          ],
+          "defaultContent": [
+            "main.main_content > div:has(section.card-product-list) h2.dx-big-section-headline"
+          ]
+        },
+        {
+          "id": "section-6",
+          "name": "Reviews UGC carousel (excluded: live Bazaarvoice feed; removed by cleanup)",
+          "selector": [
+            "main.main_content > div:has(.bazaarVoice)"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "Accessories, services, FAQ",
+          "selector": [
+            "main.main_content > div:has(.SplitterProductCarousel):not(:has(.layouts_special_content_2columns11))"
+          ],
+          "style": "dark",
+          "blocks": [
+            "cards-product",
+            "cards-featured",
+            "accordion-faq"
+          ],
+          "defaultContent": [
+            "main.main_content > div:has(.SplitterProductCarousel):not(:has(.layouts_special_content_2columns11)) h2.dx-big-section-headline"
+          ]
+        }
+      ]
+    },
+    {
       "name": "gaming",
       "urls": [
         "https://www.lenovo.com/us/en/gaming/"
@@ -249,7 +437,6 @@
           ]
         }
       ],
-      "urlPattern": "/us/en/*",
       "sections": [
         {
           "id": "section-1",
@@ -319,7 +506,8 @@
           ],
           "defaultContent": []
         }
-      ]
+      ],
+      "urlPattern": "/us/en/*"
     }
   ]
 }

@@ -1,0 +1,122 @@
+/*
+ * cards-featured: rounded promo cards (photo top, body below, button at the
+ * bottom); the first card layers its text over its photo.
+ * 1 column on phones, 2 from 600px, 3 from 900px.
+ * Structural layout only; brand styling is applied in the design pass.
+ */
+.cards-featured > ul {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-featured .cards-featured-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  color: #000;
+}
+
+.cards-featured .cards-featured-image {
+  aspect-ratio: 3 / 2;
+}
+
+.cards-featured .cards-featured-image picture {
+  display: block;
+  height: 100%;
+}
+
+.cards-featured .cards-featured-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cards-featured .cards-featured-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+}
+
+.cards-featured .cards-featured-body > * {
+  margin: 0 0 16px;
+}
+
+.cards-featured .cards-featured-body ul {
+  padding-left: 1.25em;
+}
+
+.cards-featured .cards-featured-body .cards-featured-actions {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+/* spotlight card: photo fills the card, body sits on top of it */
+.cards-featured .cards-featured-overlay {
+  display: grid;
+  grid-template: 'stack' minmax(420px, 1fr) / minmax(0, 1fr);
+  color: #fff;
+}
+
+.cards-featured .cards-featured-overlay > .cards-featured-image,
+.cards-featured .cards-featured-overlay > .cards-featured-body {
+  grid-area: stack;
+}
+
+.cards-featured .cards-featured-overlay > .cards-featured-image {
+  position: relative;
+  aspect-ratio: auto;
+}
+
+/* the photo never sizes the spotlight card */
+.cards-featured .cards-featured-overlay > .cards-featured-image picture {
+  position: absolute;
+  inset: 0;
+}
+
+.cards-featured .cards-featured-overlay > .cards-featured-body {
+  position: relative;
+  z-index: 1;
+  justify-content: flex-end;
+  background: linear-gradient(to top, rgb(0 0 0 / 60%), transparent 70%);
+}
+
+.cards-featured .cards-featured-overlay .cards-featured-body .cards-featured-actions {
+  margin-top: 8px;
+}
+
+.cards-featured .cards-featured-body a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 3px;
+}
+
+@media (width >= 600px) {
+  .cards-featured > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 900px) {
+  .cards-featured > ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/*
+ * White cards (not the spotlight card): keep the panel's own text colour inside dark/accent sections, whose
+ * global heading/paragraph colours would otherwise make text unreadable here.
+ */
+main > .section .cards-featured .cards-featured-item:not(.cards-featured-overlay) :is(h1, h2, h3, h4, h5, h6, p, li) {
+  color: inherit;
+}

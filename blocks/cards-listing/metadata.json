@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-listing",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "dense",
+    "purpose": "product-listing",
+    "imagePattern": "product-cutout",
+    "structure": "image + badge + name + price + specs + link"
+  },
+  "contentPattern": {
+    "structure": "one row per tile: cell 1 = product image; cell 2 = optional badge paragraph, product-name heading (link to PDP), optional short sub-label, \"Starting at\" + price paragraph, spec bullet list, link (button). Badge/heading/sub-label render above the image. A row without a heading (merchandising promo) keeps authored order.",
+    "notes": "Only 9 of 52 products are in the server-rendered DOM; author decides whether to add the rest manually. The inline promo tile ('Unlock 10% Off the Accessories You Need', TAKE10ACC, 'Shop and Save') can be authored as a 10th row or dropped.",
+    "buttonCount": 9,
+    "imageCount": 9
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/en/c/laptops/thinkpad/index"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-15T19:35:03.388Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

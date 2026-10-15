@@ -1,0 +1,90 @@
+/*
+ * accordion-faq: native <details>/<summary> FAQ rows separated by thin rules,
+ * question left, +/- indicator right.
+ * Structural layout only; brand styling is applied in the design pass.
+ */
+.accordion-faq {
+  interpolate-size: allow-keywords;
+}
+
+.accordion-faq .accordion-faq-item {
+  border-bottom: 1px solid rgb(128 128 128 / 50%);
+}
+
+.accordion-faq .accordion-faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  list-style: none;
+  cursor: pointer;
+}
+
+.accordion-faq .accordion-faq-question::-webkit-details-marker {
+  display: none;
+}
+
+/* +/- indicator (decorative; the open state is exposed by <details>) */
+.accordion-faq .accordion-faq-question::after {
+  content: '';
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  background:
+    linear-gradient(currentcolor, currentcolor) center / 100% 2px no-repeat,
+    linear-gradient(currentcolor, currentcolor) center / 2px 100% no-repeat;
+}
+
+.accordion-faq .accordion-faq-item[open] > .accordion-faq-question::after {
+  background: linear-gradient(currentcolor, currentcolor) center / 100% 2px no-repeat;
+}
+
+.accordion-faq .accordion-faq-item-empty > .accordion-faq-question {
+  cursor: default;
+}
+
+.accordion-faq .accordion-faq-item.accordion-faq-item-empty > .accordion-faq-question::after {
+  content: none;
+}
+
+.accordion-faq .accordion-faq-question:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+.accordion-faq .accordion-faq-answer {
+  padding: 0 32px 16px 0;
+}
+
+.accordion-faq .accordion-faq-answer > * {
+  margin: 0 0 12px;
+}
+
+.accordion-faq .accordion-faq-answer > :last-child {
+  margin-bottom: 0;
+}
+
+.accordion-faq .accordion-faq-answer a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+/* height animation where supported, only when motion is welcome */
+@media (prefers-reduced-motion: no-preference) {
+  .accordion-faq .accordion-faq-item::details-content {
+    height: 0;
+    overflow: clip;
+    transition: height 0.25s ease, content-visibility 0.25s ease allow-discrete;
+  }
+
+  .accordion-faq .accordion-faq-item[open]::details-content {
+    height: auto;
+  }
+}
+
+@media (width >= 900px) {
+  .accordion-faq .accordion-faq-question {
+    padding: 20px 0;
+  }
+}

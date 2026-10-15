@@ -1,0 +1,31 @@
+{
+  "variantName": "columns-membership",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "membership-promo-banner",
+    "imagePattern": "background-photo",
+    "structure": "logo | heading + list + link"
+  },
+  "contentPattern": {
+    "structure": "Content row: [logo image] | [heading, bullet list, link (button)]. Background photo: a row of its own holding one image (preferred, first row) or the first image of the copy cell. From 900px: logo | copy | open space over the photo subject.",
+    "notes": "Learn More href not present in scrape (JS-driven); use https://www.lenovo.com/us/en/lenovopro/ or confirm.",
+    "buttonCount": 1,
+    "imageCount": 2
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/en/c/laptops/thinkpad/index"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-15T19:31:56.533Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

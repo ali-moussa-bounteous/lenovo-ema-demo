@@ -14,18 +14,32 @@
   "contentPattern": {
     "structure": "2 columns, one row per product. Cell 1 = product image; Cell 2 = paragraph with the linked product name, then a price paragraph (e.g. bold $2,095.99). The name link makes the whole tile clickable; prices are static authored text",
     "buttonCount": 0,
-    "imageCount": 5
+    "imageCount": 5,
+    "options": {
+      "accessories": "one row per product: cell 1 = product image; cell 2 = optional label (READY TO SHIP), product name, price paragraph(s) (optional <del> original + \"NN% off\"), Shop link (button)"
+    }
   },
   "usage": {
     "pagesUsing": [
       {
         "url": "https://www.lenovo.com/us/en/gaming/",
         "screenshot": "migration-work/screenshot.png"
+      },
+      {
+        "url": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/en/c/laptops/thinkpad/index"
       }
     ],
-    "reuseCount": 1,
-    "lastUsed": "2026-10-12T00:00:00.000Z"
+    "reuseCount": 2,
+    "lastUsed": "2026-10-15T19:18:44.000Z"
   },
-  "options": [],
+  "options": [
+    {
+      "class": "accessories",
+      "label": "Accessories",
+      "description": "White vertical accessory tiles (label, name, image, price with optional strikethrough/discount, full-width Shop button); horizontal scroll row on phones, 4-up from 900px. Default gaming layout unchanged."
+    }
+  ],
   "memberVariantIds": []
 }

@@ -1,0 +1,31 @@
+{
+  "variantName": "accordion-faq",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "compact",
+    "purpose": "faq",
+    "imagePattern": "noimg",
+    "structure": "question + answer"
+  },
+  "contentPattern": {
+    "structure": "one row per item: cell 1 = question (plain text; a heading or paragraph wrapper is unwrapped because headings are not allowed in summary); cell 2 = answer paragraph(s) with inline links. Rendered as native details/summary elements.",
+    "notes": "",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/en/c/laptops/thinkpad/index"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-15T19:39:07.846Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

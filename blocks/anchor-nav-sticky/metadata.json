@@ -1,0 +1,31 @@
+{
+  "variantName": "anchor-nav-sticky",
+  "baseBlock": "anchor-nav",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "in-page-jump-nav",
+    "imagePattern": "noimg",
+    "structure": "link list"
+  },
+  "contentPattern": {
+    "structure": "1 column, one row per jump link (link text -> #id of the target section heading). Optional plain-text cell = accessible nav label (default \"On this page\"). Links whose target id is not on the page are dropped (e.g. Reviews while that section is excluded). Author the block in its own section: the section is what sticks.",
+    "notes": "Reviews link should be dropped if the Reviews section stays excluded. No Block Collection equivalent: new custom block.",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/en/c/laptops/thinkpad/index"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-15T19:25:26.002Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

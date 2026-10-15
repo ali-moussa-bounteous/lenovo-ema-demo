@@ -1,0 +1,74 @@
+/*
+ * anchor-nav-sticky: in-page jump links pinned to the top of the viewport.
+ * Structural layout only; brand styling is applied in the design pass.
+ * The block's own section is what sticks (a sticky element only sticks
+ * inside its parent, and the block wrapper is exactly as tall as the block),
+ * so author the block in a section of its own.
+ */
+main > .section.anchor-nav-sticky-container {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  background: var(--background-color, #fff);
+}
+
+.anchor-nav-sticky {
+  margin: 0 auto;
+}
+
+.anchor-nav-sticky.anchor-nav-sticky-empty {
+  display: none;
+}
+
+.anchor-nav-sticky .anchor-nav-sticky-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0 16px;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.anchor-nav-sticky .anchor-nav-sticky-list::-webkit-scrollbar {
+  display: none;
+}
+
+.anchor-nav-sticky .anchor-nav-sticky-list li {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.anchor-nav-sticky .anchor-nav-sticky-list a {
+  display: block;
+  padding: 14px 12px;
+  border-bottom: 3px solid transparent;
+  color: inherit;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.anchor-nav-sticky .anchor-nav-sticky-list a:hover {
+  text-decoration: underline;
+}
+
+.anchor-nav-sticky .anchor-nav-sticky-list a[aria-current] {
+  border-bottom-color: currentcolor;
+  font-weight: 700;
+}
+
+.anchor-nav-sticky .anchor-nav-sticky-list a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: -2px;
+}
+
+@media (width >= 900px) {
+  .anchor-nav-sticky .anchor-nav-sticky-list {
+    justify-content: safe center;
+    padding: 0 32px;
+  }
+}

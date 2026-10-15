@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-benefit",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "moderate",
+    "purpose": "feature-highlights",
+    "imagePattern": "small-icon",
+    "structure": "icon + heading + text"
+  },
+  "contentPattern": {
+    "structure": "one row per item: cell 1 = icon image; cell 2 = heading + paragraph(s). Also tolerates everything in one cell (first image = icon). 4 columns from 900px.",
+    "notes": "",
+    "buttonCount": 0,
+    "imageCount": 4
+  },
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://www.lenovo.com/us/en/c/laptops/thinkpad/",
+        "screenshot": "migration-work/screenshot.png",
+        "documentPath": "/us/en/c/laptops/thinkpad/index"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-15T19:30:54.580Z"
+  },
+  "options": [],
+  "memberVariantIds": []
+}

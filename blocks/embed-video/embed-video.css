@@ -1,0 +1,91 @@
+/*
+ * embed-video: poster + play button facade that becomes a 16:9 player on click.
+ * Structural layout only; brand styling is applied in the design pass.
+ */
+.embed-video {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.embed-video .embed-video-facade,
+.embed-video .embed-video-player {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;
+}
+
+.embed-video .embed-video-poster,
+.embed-video .embed-video-poster picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.embed-video .embed-video-poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.embed-video .embed-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 70%);
+  color: #fff;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.embed-video .embed-video-play svg {
+  width: 28px;
+  height: 28px;
+}
+
+.embed-video .embed-video-play:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #000;
+}
+
+.embed-video .embed-video-player iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .embed-video .embed-video-play {
+    transition: transform 0.2s ease;
+  }
+
+  .embed-video .embed-video-play:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@media (width >= 900px) {
+  .embed-video .embed-video-facade,
+  .embed-video .embed-video-player {
+    border-radius: 16px;
+  }
+
+  .embed-video .embed-video-play {
+    width: 72px;
+    height: 72px;
+  }
+}

@@ -10,7 +10,9 @@ Single block table. Content: 2 columns, one row per product. Cell 1 = product im
 
 ## Supported variations
 
-No variations.
+| Variation | Option class |
+| --- | --- |
+| Accessories | `accessories` |
 
 ## Universal Editor fields
 

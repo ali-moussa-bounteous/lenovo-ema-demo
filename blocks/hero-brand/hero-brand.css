@@ -1,0 +1,120 @@
+/*
+ * hero-brand: full-bleed background photo with centred logo, heading and CTA.
+ * Structural layout only; brand styling is applied in the design pass.
+ */
+.hero-brand {
+  position: relative;
+  display: grid;
+  grid-template: 'stack' minmax(400px, auto) / 1fr;
+  overflow: hidden;
+}
+
+.hero-brand > .hero-brand-media,
+.hero-brand > .hero-brand-content {
+  grid-area: stack;
+}
+
+.hero-brand .hero-brand-media {
+  position: relative;
+}
+
+/* the photo never sizes the block: it fills whatever height the content needs */
+.hero-brand .hero-brand-media picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.hero-brand .hero-brand-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+.hero-brand .hero-brand-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 64px 16px 160px;
+  text-align: center;
+}
+
+.hero-brand .hero-brand-content > * {
+  max-width: 100%;
+  margin: 0;
+}
+
+.hero-brand .hero-brand-logo img {
+  display: block;
+  width: auto;
+  max-width: 200px;
+  height: auto;
+}
+
+/* small badge link pinned to the top-right corner */
+.hero-brand .hero-brand-badge-wrapper {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  margin: 0;
+}
+
+.hero-brand .hero-brand-badge {
+  display: block;
+}
+
+.hero-brand .hero-brand-badge img {
+  display: block;
+  width: auto;
+  max-width: 160px;
+  height: auto;
+}
+
+.hero-brand a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 3px;
+}
+
+.hero-brand.hero-brand-no-image {
+  grid-template-rows: auto;
+}
+
+.hero-brand.hero-brand-no-image .hero-brand-content {
+  padding-bottom: 64px;
+}
+
+@media (width >= 600px) {
+  .hero-brand .hero-brand-content {
+    padding: 96px 24px 200px;
+  }
+
+  .hero-brand .hero-brand-logo img {
+    max-width: 240px;
+  }
+}
+
+@media (width >= 900px) {
+  .hero-brand {
+    grid-template-rows: minmax(560px, auto);
+  }
+
+  .hero-brand .hero-brand-content {
+    padding: 120px 32px 240px;
+  }
+
+  .hero-brand .hero-brand-badge img {
+    max-width: 260px;
+  }
+}
+
+@media (width >= 1200px) {
+  .hero-brand {
+    grid-template-rows: minmax(640px, auto);
+  }
+}

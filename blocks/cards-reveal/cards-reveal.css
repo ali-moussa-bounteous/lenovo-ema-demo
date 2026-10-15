@@ -1,0 +1,148 @@
+/*
+ * cards-reveal: tall photo tiles with an icon + title strip; the description
+ * overlays the photo on hover, keyboard focus, or when the title is pressed.
+ * Structural layout only; brand styling is applied in the design pass.
+ */
+.cards-reveal > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-reveal .cards-reveal-item {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.cards-reveal .cards-reveal-image {
+  grid-area: 1 / 1;
+  aspect-ratio: 3 / 4;
+}
+
+.cards-reveal .cards-reveal-image picture {
+  display: block;
+  height: 100%;
+}
+
+.cards-reveal .cards-reveal-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cards-reveal .cards-reveal-body {
+  grid-area: 2 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 8px 12px;
+  background: #fff;
+  color: #000;
+  text-align: center;
+}
+
+/* circular icon badge straddling the photo / strip edge (negative margin) */
+.cards-reveal .cards-reveal-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin: -24px 0 8px;
+  background: #fff;
+}
+
+.cards-reveal .cards-reveal-icon img {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.cards-reveal .cards-reveal-title {
+  margin: 0;
+  font-size: inherit;
+}
+
+.cards-reveal .cards-reveal-toggle {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+/* the tap / focus target covers the whole tile */
+.cards-reveal .cards-reveal-toggle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.cards-reveal .cards-reveal-toggle:focus-visible {
+  outline: none;
+}
+
+.cards-reveal .cards-reveal-item:has(.cards-reveal-toggle:focus-visible) {
+  outline: 3px solid currentcolor;
+  outline-offset: 2px;
+}
+
+.cards-reveal .cards-reveal-description {
+  position: relative;
+  z-index: 3;
+  grid-area: 1 / 1;
+  overflow: auto;
+  padding: 16px;
+  background: rgb(0 0 0 / 80%);
+  color: #fff;
+}
+
+.cards-reveal .cards-reveal-description > * {
+  margin: 0 0 8px;
+}
+
+/* reveal on hover (pointer devices) and keyboard focus, as well as when expanded */
+@media (hover: hover) {
+  .cards-reveal .cards-reveal-item:hover .cards-reveal-description[hidden] {
+    display: block;
+  }
+}
+
+.cards-reveal .cards-reveal-item:focus-within .cards-reveal-description[hidden] {
+  display: block;
+}
+
+@media (width >= 600px) {
+  .cards-reveal > ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-reveal > ul {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+
+/*
+ * White title strip: keep the panel's own text colour inside dark/accent sections, whose
+ * global heading/paragraph colours would otherwise make text unreadable here.
+ */
+main > .section .cards-reveal .cards-reveal-body :is(h1, h2, h3, h4, h5, h6, p, li) {
+  color: inherit;
+}
